@@ -1,0 +1,90 @@
+Account Created
+Balance Changed to 100000
+Account Created
+Balance Changed to 100000
+Account Created
+Balance Changed to 100000
+Account Created
+Balance Changed to 100000
+Balance checked at 100000
+Account Created
+Balance Changed to 100000
+Balance checked at 100000
+Balance Changed to 147
+Account Created
+Balance Changed to 147
+Balance checked at 147
+Account Created
+Balance Changed to 147
+Balance checked at 147
+Account Created
+Balance Changed to 147
+Balance checked at 147
+Account Created
+Balance Changed to 147
+Balance checked at 147
+Account Created
+Balance Changed to 147
+Balance checked at 147
+Account Created
+Balance Changed to 147
+Balance checked at 147
+Account Created
+Balance Changed to 147
+Balance checked at 147
+Account Created
+Balance Changed to 65656
+Balance checked at 65656
+Account Created
+Account Created
++65656credited. New Balance is:65656
++65656Withdrawn. New Balance is:0
++65656credited. New Balance is:65656
++65656Withdrawn. New Balance is:0
+Account Created
++65656credited. New Balance is:65656
++65656Withdrawn. New Balance is:0
++65656credited. New Balance is:65656
++65656Withdrawn. New Balance is:0
++65656credited. New Balance is:65656
++65656Withdrawn. New Balance is:0
+Balance checked at 0
+Balance checked at 0
+Account Created
++65656credited. New Balance is:65656
+Balance checked at 65656
+Account Created
++100credited. New Balance is:100
++50Withdrawn. New Balance is:50
++1000credited. New Balance is:1050
++1050Withdrawn. New Balance is:0
++1credited. New Balance is:1
++146Withdrawn. New Balance is:-145
++-146Withdrawn. New Balance is:1
++1credited. New Balance is:2
++-146Withdrawn. New Balance is:148
++1credited. New Balance is:149
++-146Withdrawn. New Balance is:295
+Balance checked at 295
++1credited. New Balance is:296
++1credited. New Balance is:297
++1credited. New Balance is:298
++-146Withdrawn. New Balance is:444
+Balance checked at 444
+Balance checked at 444
+Account Created
++ 100credited. New Balance is:100
++ 50Withdrawn. New Balance is:50
++ 1000credited. New Balance is:1050
++ 1050Withdrawn. New Balance is:0
++ 1credited. New Balance is:1
++ -146Withdrawn. New Balance is:147
+Balance checked at 147
+Account Created
++ 100credited. New Balance is:100
++ 50Withdrawn. New Balance is:50
++ 1000credited. New Balance is:1050
++ 1050Withdrawn. New Balance is:0
++ 1credited. New Balance is:1
++ -146Withdrawn. New Balance is:147
+Balance checked at 147
