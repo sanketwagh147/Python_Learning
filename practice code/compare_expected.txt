@@ -1,1 +1,0 @@
-{'978-0-140-17739-8': {'title': 'Of Mice and Men', 'author': 'John Steinbeck'}, '978-1-260-08227-2': {'title': 'Introduction to Computing', 'author': 'David Joyner'}}.

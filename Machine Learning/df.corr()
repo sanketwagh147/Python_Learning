@@ -1,4 +1,0 @@
-import pandas as pd
-data = [['tom', 10, -100], ['nick', 15, -150], ['juli', 14, 140]]
-df = pd.DataFrame(data, columns = ['Name', 'Age','Age * 10'])
-print(df.corr())

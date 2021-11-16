@@ -1,7 +1,0 @@
-{'Alison Brie': ['Community', 'How to Be Single', 'The Lego Movie'], 'Dakota Johnson': ['How to Be Single'],
- 'Rebel Wilson': ['How to Be Single'], 'Will Arnett': ['Arrested Development', 'The Lego Movie'],
-  'Elizabeth Banks': ['30 Rock', 'The Lego Movie'], 'Will Ferrell': ['The Lego Movie'],
-   'Joel McHale': ['Community'], 'Danny Pudi': ['Community'], 'Yvette Brown': ['Community'],
-    'Donald Glover': ['Community'], 'Tina Fey': ['30 Rock'], 'Tracy Morgan': ['30 Rock'],
-     'Jack McBrayer': ['30 Rock'], 'Alec Baldwin': ['30 Rock'], 'Jason Bateman': ['Arrested Development'],
-      'Portia de Rossi': ['Arrested Development']}

@@ -1,3 +1,0 @@
-input_file = r"/practice code/Basic In Built Functions/Username2.txt"
-data = open(input_file, "r")
-a_string = data.read()
