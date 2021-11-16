@@ -2,8 +2,8 @@
 *.csv
 
 ignore folders
-__pycache__\
+__pycache__/
 .idea
-.ipynb_checkpoints\
-.tmp.driveupload\
-.vscode\
+.ipynb_checkpoints/
+.tmp.driveupload/
+.vscode/
