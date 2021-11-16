@@ -1,0 +1,1 @@
+select char_length(cast(inventory_id as varchar)) from rental
