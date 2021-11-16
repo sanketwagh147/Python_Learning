@@ -1,2 +1,9 @@
 # ignore all csv files
 *.csv
+
+ignore folders
+__pycache__\
+.idea
+.ipynb_checkpoints\
+.tmp.driveupload\
+.vscode\
