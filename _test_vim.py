@@ -249,7 +249,8 @@ c"g"c
     For the latest release notes, more advanced shsfasfjfjfjortcuts, and how to create custom keybindings, see th this is a block of code which I intend to writ { jalpha bet a dick whatever I
     lkl sdfffjkafkajsfkjiiajflejif;
     j ij s jjkjkjijiJJish \j  j' ] jj j thjd i
-    <strong><a href="https://github.com/philc/vimisfasfjfjfjum/blob/master/README.md">README</a></strong> this is a block of code which I intend to writ { jalpha bet a dick whatever I
+    <strong><a href="https://github.com/philc/vimisfasfjfjfjum/blob/master/README.md">README</a></strong> this is a block of code which I to writ { jalpha bet a dick whatever I
+     s c
     lkl sdfffjkafkajsfkjiiajflejif;
     j ij s jjkjkjijiJJish \j  j' ] jj j thjd i
  this is a block of code which I intend to writ { sfasfjfjfjjalpha bet a dick whatever I
@@ -447,13 +448,13 @@ have a line 4e
 _fldwj
 
 this is finthis is finhave a line
+this is finthis is finhave a lV
 this is finthis is finhave a line
 this is finthis is finhave a line
-this is finthis is finhave a line
-this is finthis is finhave a line
-this is finthis is finhave a line
+holaalfjaljfajf is finthis idli finhave a line
+this is finthis is rikjkjkjkjkinhave a line
 _fldwj
-kkkkk
+idli kk
 
 kkkkk
 
@@ -1010,7 +1011,7 @@ kkkkk
 
 
 
-
+print
 
 
 
@@ -1020,6 +1021,10 @@ kkkkk
 for i in range(1):@ext:oderwat.indent-rainbow@ext:oderwat.indent-rainbow
 
 
-def longfunction(a_long_variable, a_very_long_varaiable) :
+def longfusnction(a_long_variable, a_very_long_varaiable) :
 
 
+def kanda():`
+
+
+j
