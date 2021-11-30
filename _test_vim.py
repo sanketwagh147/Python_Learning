@@ -1,4 +1,4 @@
-cc
+c"g"c
 
 
 <body id="index" onload="">
@@ -1015,5 +1015,11 @@ kkkkk
 
 
 
+
+
+for i in range(1):@ext:oderwat.indent-rainbow@ext:oderwat.indent-rainbow
+
+
+def longfunction(a_long_variable, a_very_long_varaiable) :
 
 
