@@ -5,4 +5,4 @@ def fibonacci(n):
         return 1
 
 
-fibonacci(6)
+print(fibonacci(6))
