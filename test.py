@@ -1,5 +1,1 @@
-a = 3
-k = 4
-print()
-if a != k:
-    print("Ididiot")
+This is to test if git is propertly set up on work laoptop
