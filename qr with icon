@@ -1,0 +1,35 @@
+import segno
+from PIL import Image
+
+URL = "https://www.google.com/maps/dir/?api=1&destination=18.558245250636165,%2073.7378896894137"
+# LOGO = "./fav.ico"
+LOGO = "./y.jpg"
+OUTPUT = "qrcode.png"
+
+# Make QR code
+qr = segno.make_qr(URL, error="H")
+qr.save(OUTPUT, finder_dark="#fa0", scale=100)
+
+# Now open that png image to put the logo
+img = Image.open(OUTPUT).convert("RGBA")
+
+width, height = img.size
+
+# How big the logo we want to put in the qr code png
+logo_size = 800
+
+# Open the logo image
+logo = Image.open(LOGO).convert("RGBA")
+
+# Calculate xmin, ymin, xmax, ymax to put the logo
+xmin = ymin = int((width / 2) - (logo_size / 2))
+xmax = ymax = int((width / 2) + (logo_size / 2))
+
+# resize the logo as calculated
+logo = logo.resize((xmax - xmin, ymax - ymin))
+
+# put the logo in the qr code
+img.paste(logo, (xmin, ymin, xmax, ymax))
+
+# img.show()
+img.save(OUTPUT)
