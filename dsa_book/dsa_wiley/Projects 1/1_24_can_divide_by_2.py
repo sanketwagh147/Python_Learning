@@ -1,7 +1,7 @@
 from icecream import ic
 
 
-def can_divide_by_2(num: int, divide_count=1):
+def can_divide_by_2(num: int | float, divide_count=1):
 
     # if num <= 2:
     #     return divide_count
