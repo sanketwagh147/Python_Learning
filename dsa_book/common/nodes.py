@@ -24,3 +24,4 @@ class DNode(Node[GenericNode]):
 
 if __name__ == "__main__":
     ...
+    int_node: Node[int] = Node(1)
