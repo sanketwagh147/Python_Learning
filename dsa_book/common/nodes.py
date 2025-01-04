@@ -5,7 +5,7 @@ from typing import Generic, TypeVar, Union
 GenericNode = TypeVar("GenericNode")
 
 
-@dataclass
+@dataclass(slots=True)
 class Node(Generic[GenericNode]):
     value: GenericNode
     next: Union["Node[GenericNode]", None] = None
@@ -14,7 +14,7 @@ class Node(Generic[GenericNode]):
         return f"<Node : {self.value} {'-> ' if self.next else ''} {self.next if self.next else ''}>"
 
 
-@dataclass
+@dataclass(slots=True)
 class DNode(Node[GenericNode]):
     prev: Union["DNode[GenericNode]", None] = None
 
