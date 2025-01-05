@@ -132,7 +132,9 @@ if __name__ == "__main__":
     p2 = PositionalList()
     p2.add_first(3)
     p2.add_last(4)
+
     # FIXME : Check why the extend method does not work
+    # Observation: Issue lies in positional list of base class
     p1.extend(p2)
     # print(p1)
     for each in p1:

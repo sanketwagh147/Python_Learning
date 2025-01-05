@@ -13,6 +13,9 @@ class DoublyLinkedList:
         self.tail = new_node
         self.length = 1
 
+    def is_empty(self):
+        return self.length == 0
+
     def print_list(self):
         temp = self.head
         while temp is not None:
@@ -163,30 +166,101 @@ class DoublyLinkedList:
         for each in self.__dict__:
             print(f"{each} : {self.__dict__[each]}")
 
+    def extend(self, ll):
+        if ll is None or ll.is_empty():  # Handle empty or None `ll`
+            return
+
+        if self.is_empty():  # Handle if `self` is empty
+            self.head = ll.head
+            self.tail = ll.tail
+            self.length = ll.length
+            return
+
+        # Connect `self`'s trailer to `ll`'s header
+        self.tail.next = ll.head
+        ll.head.prev = self.tail
+
+        # Update `self`'s trailer to `ll`'s trailer
+        self.tail = ll.tail
+
+        # Update length
+        self.length += ll.length
+
+        # Optionally clear `ll`
+        ll.head = ll.tail = None
+        ll.length = 0
+
+    def find_middle(self):
+        temp1 = self.head
+        temp2 = self.head
+
+        while temp1.next != None and temp1.next.next != None:
+            temp1 = temp1.next.next
+            temp2 = temp2.next
+
+        return temp2.value
+
+    def delete(self, value):
+        """Delete by value"""
+
+        temp = self.head
+
+        while temp != None:
+
+            # check if current temp and value is same
+            if temp.value == value:
+
+                # case if head and node to be removed with given value
+                if self.head == temp:
+                    self.head = temp.next
+                    temp.next.prev = None
+                    return temp
+
+                # make
+                temp.prev.next = temp.next
+
+                if temp.next != None:
+                    temp.next.prev = temp.prev
+                    temp.next = None
+                    temp.prev = None
+                    return temp
+
+            # move to next node to chck
+            temp = temp.next
+        print("value not in list")
+
 
 if __name__ == "__main__":
-    dl = DoublyLinkedList(2)
+    dl = DoublyLinkedList(1)
+    dl.append(2)
+    dl.append(5)
+    dl1 = DoublyLinkedList(3)
+    dl1.append(4)
+    dl.extend(dl1)
+    # print(dl.find_middle())
     # dl.print_list()
-    dl.append(3)
+    print(dl.delete(5))
+    # dl.print_list()
+    # dl.append(3)
     # dl.append(4)
     # dl.append(2)
     # print(dl.pop())
     # print(dl.pop())
     # print(dl.pop())
     # dl.inspect_list()
-    dl.prepend(1)
-    dl.prepend(0)
+    # dl.prepend(1)
+    # dl.prepend(0)
     # print(dl.pop_first())
     # print(dl.pop_first())
     # print(dl.pop_first())
     # print(dl.get(0))
-    dl.set_value(0, 100)
-    dl.set_value(2, 200)
-    dl.insert(1, 50)
-    dl.insert(4, 40)
-    dl.remove(4)
-    dl.remove(1)
-    dl.remove(2)
+    # dl.set_value(0, 100)
+    # dl.set_value(2, 200)
+    # dl.insert(1, 50)
+    # dl.insert(4, 40)
+    # dl.remove(4)
+    # dl.remove(1)
+    # dl.remove(2)
     # print(dl.get(2))
 
-    dl.print_list()
+    # dl.print_list()
