@@ -7,7 +7,8 @@ class Node:
     next: "Node" = None  # type: ignore  # using forward reference
 
     def __str__(self) -> str:
-        return f"<Node : {self.value} {'-> ' if self.next else ''} {self.next if self.next else ''}>"
+        # return f"<Node : {self.value} {'-> ' if self.next else ''} {self.next if self.next else ''}>"
+        return f"<Node : {self.value} >"
 
 
 class LinkedList:
@@ -173,17 +174,34 @@ class LinkedList:
             # set current item to be the next item
             curr = temp
 
+    def find_middle_node(self):
+        slow_pointer = self.head
+        fast_pointer = self.head
+
+        while fast_pointer and fast_pointer.next:
+            slow_pointer = slow_pointer.next
+            fast_pointer = fast_pointer.next.next
+
+        return slow_pointer
+
 
 my_linked_list = LinkedList(1)
 my_linked_list.append(2)
 my_linked_list.append(3)
 my_linked_list.append(4)
-my_linked_list.append(8)
+my_linked_list.append(5)
+my_linked_list.append(6)
+my_linked_list.append(7)
+my_linked_list.append(7)
+my_linked_list.append(7)
 
-print("LL before reverse():")
-my_linked_list.print_list()
 
-my_linked_list.reverse()
+print(my_linked_list.find_middle_node())
 
-print("\nLL after reverse():")
-my_linked_list.print_list()
+# print("LL before reverse():")
+# my_linked_list.print_list()
+
+# my_linked_list.reverse()
+
+# print("\nLL after reverse():")
+# my_linked_list.print_list()
