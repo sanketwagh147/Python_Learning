@@ -58,3 +58,27 @@ class _DoublyLinkedListBase:
             values.append(str(current.value))
             current = current.next
         return " <-> ".join(values)
+
+    def extend(self, ll):
+        if ll is None or ll.is_empty():  # Handle empty or None `ll`
+            return
+
+        if self.is_empty():  # Handle if `self` is empty
+            self._header = ll._header
+            self._trailer = ll._trailer
+            self._size = ll._size
+            return
+
+        # Connect `self`'s trailer to `ll`'s header
+        self._trailer.next = ll._header
+        ll._header.prev = self._trailer
+
+        # Update `self`'s trailer to `ll`'s trailer
+        self._trailer = ll._trailer
+
+        # Update _size
+        self._size += ll._size
+
+        # Optionally clear `ll`
+        ll._header = ll._trailer = None
+        ll._size = 0

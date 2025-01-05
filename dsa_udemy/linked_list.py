@@ -153,6 +153,26 @@ class LinkedList:
             # now move current to next node
             # current = after
 
+    def reverse2(self):
+        prev = None
+        # start from head
+        curr = self.head
+
+        # stop
+        while curr is not None:
+
+            # save next item in temp
+            temp = curr.next
+
+            # set next to be prev
+            curr.next = prev
+
+            # set previos item to be the curr
+            prev = curr
+
+            # set current item to be the next item
+            curr = temp
+
 
 my_linked_list = LinkedList(1)
 my_linked_list.append(2)
@@ -167,21 +187,3 @@ my_linked_list.reverse()
 
 print("\nLL after reverse():")
 my_linked_list.print_list()
-
-
-"""
-    EXPECTED OUTPUT:
-    ----------------
-    LL before reverse():
-    1
-    2
-    3
-    4
-
-    LL after reverse():
-    4
-    3
-    2
-    1
-    
-"""
