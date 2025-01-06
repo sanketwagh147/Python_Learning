@@ -184,24 +184,90 @@ class LinkedList:
 
         return slow_pointer
 
+    def has_loop(self):
+        """
+        Detects cycle / loop present in a linked list
+        using Floyd's cycle-finding algorithm(tortoise and the hare)
+        If cycle is present the pointer will eventually meet each other
+        """
+        slow_pointer = self.head
+        fast_pointer = self.head
 
-my_linked_list = LinkedList(1)
-my_linked_list.append(2)
-my_linked_list.append(3)
-my_linked_list.append(4)
-my_linked_list.append(5)
-my_linked_list.append(6)
-my_linked_list.append(7)
-my_linked_list.append(7)
-my_linked_list.append(7)
+        while fast_pointer and fast_pointer.next:
+            print("*")
+            slow_pointer = slow_pointer.next
+            fast_pointer = fast_pointer.next.next
+            if slow_pointer is fast_pointer:
+                return True
+
+        return False
 
 
-print(my_linked_list.find_middle_node())
+def find_kth_from_end(ll: LinkedList, k: int):
+    """Given K return the kth element in list starting backwards"""
 
-# print("LL before reverse():")
-# my_linked_list.print_list()
+    # Handle k
+    if k <= 0:
+        raise ValueError(f"{k=} is invalid")
 
-# my_linked_list.reverse()
+    #
+    slow_pointer = ll.head
+    fast_pointer = ll.head
 
-# print("\nLL after reverse():")
-# my_linked_list.print_list()
+    for _ in range(k):
+
+        if not fast_pointer:
+            return None
+        fast_pointer = fast_pointer.next
+
+    while fast_pointer:
+        slow_pointer = slow_pointer.next
+        fast_pointer = fast_pointer.next
+
+    return slow_pointer
+
+
+if __name__ == "__main__":
+    my_linked_list = LinkedList(1)
+    my_linked_list.append(2)
+    # my_linked_list.append(3)
+    # my_linked_list.append(4)
+    # my_linked_list.append(5)
+
+    k = 3
+    result = find_kth_from_end(my_linked_list, k)
+
+    print(result.value)  # Output: 4
+
+    # my_linked_list_1 = LinkedList(1)
+    # my_linked_list_1.append(2)
+    # my_linked_list_1.append(3)
+    # my_linked_list_1.append(4)
+    # my_linked_list_1.tail.next = my_linked_list_1.head
+    # print(my_linked_list_1.has_loop())  # Returns True
+
+    # my_linked_list_2 = LinkedList(1)
+    # my_linked_list_2.append(2)
+    # my_linked_list_2.append(3)
+    # my_linked_list_2.append(4)
+    # print(my_linked_list_2.has_loop())  # Returns False
+
+    # my_linked_list = LinkedList(1)
+    # my_linked_list.append(2)
+    # my_linked_list.append(3)
+    # my_linked_list.append(4)
+    # my_linked_list.append(5)
+    # my_linked_list.append(6)
+    # my_linked_list.append(7)
+    # my_linked_list.append(7)
+    # my_linked_list.append(7)
+
+    # print(my_linked_list.find_middle_node())
+
+    # print("LL before reverse():")
+    # my_linked_list.print_list()
+
+    # my_linked_list.reverse()
+
+    # print("\nLL after reverse():")
+    # my_linked_list.print_list()
