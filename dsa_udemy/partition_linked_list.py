@@ -37,13 +37,13 @@ class LinkedList:
 
     def partition_list(self, x: int):
         lt_x_head = ltx_tail = None
-        gt_x_head = gtx_tail = None
+        gt_x_head = gt_x_tail = None
 
         current = self.head
 
         while current:
             next_node = current.next
-            current = None
+            current.next = None
 
             if current.value < x:
                 if not lt_x_head:
@@ -53,11 +53,18 @@ class LinkedList:
                     ltx_tail = current
             else:
                 if not gt_x_head:
-                    gt_x_head = gtx_tail = current
+                    gt_x_head = gt_x_tail = current
                 else:
                     gt_x_head.next = current
-                    gtx_tail = current
-            current_node = next_node
+                    gt_x_tail = current
+
+            current = next_node
+
+        if ltx_tail:
+            ltx_tail.next = gt_x_head
+            return lt_x_head
+        else:
+            return gt_x_head
 
 
 if __name__ == "__main__":
