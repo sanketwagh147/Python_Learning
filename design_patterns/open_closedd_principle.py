@@ -25,10 +25,18 @@ class Quality(Enum):
     PREMIUM = auto()
 
 
+class Product:
+    def __init__(self, name: str, color: Color, size: Size, quality: Quality):
+        self.name = name
+        self.color = color
+        self.size = size
+        self.quality = quality
+
+
 class Specification(ABC):
 
     @abstractmethod
-    def is_satisfied(self, item):
+    def is_satisfied(self, item: Product):
         """
         This would be an abstract method which should be overwritten
         """
@@ -98,14 +106,6 @@ class Filter(_Filter):
                 yield item
 
 
-class Product:
-    def __init__(self, name, color, size, quality):
-        self.name = name
-        self.color = color
-        self.size = size
-        self.quality = quality
-
-
 apple = Product("Apple", Color.GREEN, Size.SMALL, Quality.ECONOMY)
 apple2 = Product("Apple2", Color.GREEN, Size.SMALL, Quality.MEDIUM)
 tree = Product("Tree", Color.GREEN, Size.LARGE, Quality.MEDIUM)
@@ -116,18 +116,10 @@ house2 = Product("House2", Color.BLUE, Size.LARGE, Quality.PREMIUM)
 products = [apple, apple2, tree2, house2, tree, house]
 filter = Filter()
 
-# print("Green products (new):")
-# green = ColorSpecification(Color.GREEN)
-# for p in filter.filter(products, green):
-#     print(f" - {p.name} is green")
+green = ColorSpecification(Color.GREEN)
 
-# print("Large products:")
 large = SizeSpecification(Size.LARGE)
-# for p in filter.filter(products, large):
-#     print(f" - {p.name} is large")
 
-# print("Large blue items:")
-# large_blue = AndSpecification(large, ColorSpecification(Color.BLUE))
 large_blue = (
     large & ColorSpecification(Color.BLUE) & QualitySpecification(Quality.PREMIUM)
 )
