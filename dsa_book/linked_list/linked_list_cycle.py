@@ -7,7 +7,7 @@ from typing import Optional
 
 from icecream import ic
 
-from dsa_book.common import linked_list_builder
+from dsa_book.common import builders
 from dsa_book.common.nodes import Node as ListNode
 
 print(sys.path)
@@ -36,7 +36,7 @@ class Solution:
 
 if __name__ == "__main__":
 
-    l1 = linked_list_builder.linked_list_builder([3, 2, 0, -4])
+    l1 = builders.linked_list_builder([3, 2, 0, -4])
     sol = Solution()
     sol.hasCycle(l1)
 

@@ -1,4 +1,4 @@
-from dsa_book.common.linked_list_builder import linked_list_builder
+from dsa_book.common.builders import linked_list_builder
 from dsa_book.common.nodes import Node
 
 
