@@ -7,7 +7,7 @@ from typing import Optional
 
 from icecream import ic
 
-from dsa_book.common.data_builders import linked_list_builder
+from dsa_book.common import linked_list_builder
 from dsa_book.common.nodes import Node as ListNode
 
 print(sys.path)
