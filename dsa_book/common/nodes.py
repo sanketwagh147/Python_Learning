@@ -2,10 +2,10 @@ from dataclasses import dataclass
 from typing import Generic, TypeVar, Union
 
 # This
-GenericNode = TypeVar("GenericNode")
+GenericNode = TypeVar("GenericNode", int, str, dict, list)
 
 
-@dataclass(slots=True)
+@dataclass()
 class Node(Generic[GenericNode]):
     value: GenericNode
     next: Union["Node[GenericNode]", None] = None
@@ -14,7 +14,7 @@ class Node(Generic[GenericNode]):
         return f"<Node : {self.value} {'-> ' if self.next else ''} {self.next if self.next else ''}>"
 
 
-@dataclass(slots=True)
+@dataclass()
 class ListNode(Generic[GenericNode]):
     """Same as Node but used for leet code examples"""
 
