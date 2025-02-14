@@ -1,11 +1,13 @@
 from typing import Optional
 
+from decorators.disable_print_decorator import disable_print
 from dsa_book.common.builders import linked_list_builder
 from dsa_book.common.nodes import ListNode
 
 
 class Solution:
 
+    @disable_print
     def getDecimalValue(self, head: Optional[ListNode[int]]) -> int:
 
         # 101
