@@ -21,8 +21,11 @@ class ListNode(Generic[GenericNode]):
     val: GenericNode
     next: Union["Node[GenericNode]", None] = None
 
-    def __str__(self) -> str:
+    def __repr__(self) -> str:
         return f"<Node : {self.val} {'-> ' if self.next else ''} {self.next if self.next else ''}>"
+
+    def __str__(self) -> str:
+        return f"<Node : {self.val}>"
 
 
 @dataclass(slots=True)
