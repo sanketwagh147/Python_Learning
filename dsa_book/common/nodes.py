@@ -19,13 +19,19 @@ class ListNode(Generic[GenericNode]):
     """Same as Node but used for leet code examples"""
 
     val: GenericNode
-    next: Union["Node[GenericNode]", None] = None
+    next: Union["ListNode[GenericNode]", None] = None
 
     def __repr__(self) -> str:
         return f"<Node : {self.val} {'-> ' if self.next else ''} {self.next if self.next else ''}>"
 
     def __str__(self) -> str:
         return f"<Node : {self.val}>"
+
+    def print_list(self):
+        current = self
+        while current:
+            print(current.val, end=" -> " if current.next else "\n")
+            current = current.next  # Move to the next node
 
 
 @dataclass(slots=True)
