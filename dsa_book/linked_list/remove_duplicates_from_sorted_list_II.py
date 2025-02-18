@@ -11,7 +11,10 @@ from dsa_book.common.nodes import ListNode
 class Solution:
     def deleteDuplicates(self, head: Optional[ListNode[int]]) -> Optional[ListNode]:
 
+        # create dummy and make next as head
         dummy = ListNode(0, head)
+
+        # previous node becomes a dummy node
         prev = dummy
 
         while head:
