@@ -1,7 +1,9 @@
 """Leet Code problem 3"""
 
 
+# 🌟 Uses Sliding window pattern
 class Solution:
+
     def lengthOfLongestSubstring(self, s: str) -> int:
         chrs = set()
         left = 0

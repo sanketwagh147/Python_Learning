@@ -2,7 +2,8 @@
 Module which generates Linked list from list of values for testing purposes
 """
 
-from typing import Optional
+from dataclasses import dataclass
+from typing import Any, Optional
 
 from dsa_book.common.nodes import ListNode
 
@@ -25,3 +26,9 @@ def linked_list_builder(values: list) -> Optional[ListNode]:
         current = current.next
 
     return head
+
+
+@dataclass
+class TestCase:
+    input: dict[str, Any]
+    output: Any
