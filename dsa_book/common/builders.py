@@ -30,5 +30,7 @@ def linked_list_builder(values: list) -> Optional[ListNode]:
 
 @dataclass
 class TestCase:
-    input: dict[str, Any]
-    output: Any
+    name: str
+    inp: dict[str, Any]
+    op: Any
+    details: str | None = ""
