@@ -6,7 +6,7 @@ import unittest
 
 from parameterized import parameterized
 
-from dsa_book.common.builders import TestCase
+from dsa_book.common.builders import TestCase_
 
 
 class Solution:
@@ -39,29 +39,29 @@ class TestRomanToInt(unittest.TestCase):
 
     test_cases = [
         # 🟢 Basic Cases
-        TestCase("tc1", inp=dict(s="III"), op=3, details="basic case"),
-        TestCase("tc4", inp=dict(s="MDC"), op=1600, details="basic case"),
-        TestCase("tc5", inp=dict(s="MLI"), op=1051, details="basic case"),
-        TestCase("tc7", inp=dict(s="XII"), op=12, details="basic case"),
-        TestCase("tc8", inp=dict(s="CXL"), op=140, details="basic case"),
+        TestCase_("tc1", inp=dict(s="III"), op=3, details="basic case"),
+        TestCase_("tc4", inp=dict(s="MDC"), op=1600, details="basic case"),
+        TestCase_("tc5", inp=dict(s="MLI"), op=1051, details="basic case"),
+        TestCase_("tc7", inp=dict(s="XII"), op=12, details="basic case"),
+        TestCase_("tc8", inp=dict(s="CXL"), op=140, details="basic case"),
         # 🟡 Intermediate Cases
-        TestCase("tc2", inp=dict(s="LVIII"), op=58, details="intermediate case"),
-        TestCase("tc9", inp=dict(s="DCCC"), op=800, details="intermediate case"),
-        TestCase("tc10", inp=dict(s="CMXC"), op=990, details="intermediate case"),
+        TestCase_("tc2", inp=dict(s="LVIII"), op=58, details="intermediate case"),
+        TestCase_("tc9", inp=dict(s="DCCC"), op=800, details="intermediate case"),
+        TestCase_("tc10", inp=dict(s="CMXC"), op=990, details="intermediate case"),
         # 🔴 Edge Cases
-        TestCase("tc6", inp=dict(s=""), op=0, details="edge case - empty string"),
-        TestCase(
+        TestCase_("tc6", inp=dict(s=""), op=0, details="edge case - empty string"),
+        TestCase_(
             "tc11", inp=dict(s="I"), op=1, details="edge case - smallest valid input"
         ),
-        TestCase(
+        TestCase_(
             "tc12",
             inp=dict(s="MMMCMXCIX"),
             op=3999,
             details="edge case - largest valid Roman numeral",
         ),
         # 🏆 Complex Cases
-        TestCase("tc3", inp=dict(s="MCMXCIV"), op=1994, details="complex case"),
-        TestCase(
+        TestCase_("tc3", inp=dict(s="MCMXCIV"), op=1994, details="complex case"),
+        TestCase_(
             "tc13", inp=dict(s="MMMDCCCLXXXVIII"), op=3888, details="complex case"
         ),
     ]

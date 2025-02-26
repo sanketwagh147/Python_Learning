@@ -6,7 +6,7 @@ nums1
 
 from typing import List
 
-from dsa_book.common.builders import TestCase
+from dsa_book.common.builders import TestCase_
 
 
 class Solution:
@@ -53,12 +53,12 @@ class Solution:
 if __name__ == "__main__":
     nums1 = [1, 3]
     nums2 = [2]
-    tc1 = TestCase(inp=dict(nums1=nums1, nums2=nums2), op=2.00)
+    tc1 = TestCase_(inp=dict(nums1=nums1, nums2=nums2), op=2.00)
 
     def test_merge_sorted_array():
         nums1 = [1, 3]
         nums2 = [2]
-        tc1 = TestCase(inp=dict(arr1=nums1, arr2=nums2), op=[1, 2, 3])
+        tc1 = TestCase_(inp=dict(arr1=nums1, arr2=nums2), op=[1, 2, 3])
         s = Solution()
         assert s.merge_two_sorted_array(**tc1.inp) == tc1.op
 

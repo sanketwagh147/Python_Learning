@@ -2,6 +2,7 @@
 Module which generates Linked list from list of values for testing purposes
 """
 
+from collections import namedtuple
 from dataclasses import dataclass
 from typing import Any, Optional
 
@@ -29,8 +30,19 @@ def linked_list_builder(values: list) -> Optional[ListNode]:
 
 
 @dataclass
-class TestCase:
+class TestCase_:
     name: str
     inp: dict[str, Any]
     op: Any
     details: str | None = ""
+
+
+TestCase = namedtuple("TestCase", ["name", "params", "expected", "description"])
+TestCase.__doc__ = """Represents a test case.
+
+Fields:
+- name (str): The identifier of the test case.
+- params (dict): The input parameters.
+- expected (Any): The expected output.
+- description (str): A short description of the test case.
+"""
