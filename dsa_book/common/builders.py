@@ -2,9 +2,8 @@
 Module which generates Linked list from list of values for testing purposes
 """
 
-from collections import namedtuple
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any, NamedTuple, Optional
 
 from dsa_book.common.nodes import ListNode
 
@@ -37,12 +36,10 @@ class TestCase_:
     details: str | None = ""
 
 
-TestCase = namedtuple("TestCase", ["name", "params", "expected", "description"])
-TestCase.__doc__ = """Represents a test case.
+class TestCase(NamedTuple):
+    """Named tuple  for test cases"""
 
-Fields:
-- name (str): The identifier of the test case.
-- params (dict): The input parameters.
-- expected (Any): The expected output.
-- description (str): A short description of the test case.
-"""
+    name: str
+    params: dict[str, Any]
+    expected: Any
+    description: str = ""
