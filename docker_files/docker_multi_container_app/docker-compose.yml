@@ -1,0 +1,83 @@
+
+# In Docker Compose, the version field specifies the Compose file format version, which determines the features and syntax available in the docker-compose.yml file.
+# This is absolute/deprecated
+version: '3'
+
+services:
+  mongodb:
+      # uses docker existing images
+      # Full url / custom image is also valid:
+      # 
+      image: 'mongo'
+      volumes: 
+        - data:/data/db
+        # - data:/data/db:ro
+
+      # environment:
+        # 1st option to set environmet
+        # MONGO_INITDB_ROOT_USERNAME: sanket
+        # MONGO_INITDB_ROOT_PASSWORD: wagh
+
+        # 2nd syntax to set environment
+        # - MONGO_INITDB_ROOT_USERNAME: max
+
+      # 3rd option env files
+      env_file:
+         - ./env/mongo.env
+      # all services will be part or a network which is creted when compose is created
+
+      # networks:
+        # - goals-net
+
+  backend:
+    # 1st way
+    # image: "node-backend" # Image which is built on the system
+
+    #  2nd way
+    # build: ./backend  # looks for docker file 
+
+    # 3rd way
+    build:
+      context: ./backend  # looks for docker file (copy . . in docker file the first . (location is the pathjj))
+      dockerfile: Dockerfile-backend # if the name of dockerfile is different
+
+      # args using in docker compose
+      #args:
+        # some-args:1
+    
+    ports:
+      - '80:80'
+
+    volumes:
+      - logs:/app/logs
+      - ./backend:/app
+      - /app/node_modules
+      # for bind mount in docker compose relative path to docker compose is allowed
+    env_file:
+         - ./env/backend.env
+
+    depends_on:
+      - mongodb
+    
+  frontend:
+
+    build:
+      context: ./frontend  
+      dockerfile: Dockerfile-frontend
+
+    ports:
+      - '3000:3000'
+
+    volumes:
+      - ./frontend/src:/app/src
+
+    # both below makes -it like behaiviour
+    stdin_open: true
+    tty: true
+
+    depends_on:
+      - backend
+# Named volumes to be listed separately and can share data across container if present in individual service->volume
+volumes:
+  data:
+  logs:
