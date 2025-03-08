@@ -1,0 +1,4 @@
+
+# mark down bold 
+(to make sentence bold till -)
+i**<Esc>f-bea**<Esc>+
