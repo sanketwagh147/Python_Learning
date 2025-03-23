@@ -39,6 +39,54 @@
       "originalText": "[ -3, -3 , -2 , -1 , 0 ,1 ,2 ,2, 3]",
       "autoResize": true,
       "lineHeight": 1.25
+    },
+    {
+      "id": "9TOx0e6Tv_2CAG-S0U9Sv",
+      "type": "freedraw",
+      "x": 350,
+      "y": -2186,
+      "width": 0,
+      "height": 1,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "a1",
+      "roundness": null,
+      "seed": 25595932,
+      "version": 5,
+      "versionNonce": 1540404636,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1742626324492,
+      "link": null,
+      "locked": false,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          -1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "pressures": [],
+      "simulatePressure": true,
+      "lastCommittedPoint": [
+        0,
+        -1
+      ]
     }
   ],
   "appState": {
