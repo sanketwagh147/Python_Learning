@@ -2,6 +2,10 @@
 Leet Code 17
 """
 
+from typing import List
+
+from icecream import ic
+
 
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
@@ -21,6 +25,9 @@ class Solution:
         }
 
         def backtrack(index, path):
+            ic(index)
+            ic(path)
+            ic("END".center(40, "-"))
             if index == len(digits):
                 res.append("".join(path))
                 return
@@ -28,6 +35,14 @@ class Solution:
             for letter in key_map[digits[index]]:
                 backtrack(index + 1, path + [letter])
 
+            ic(res)
+            ic("END".center(60, "-"))
+
         backtrack(0, [])
 
         return res
+
+
+if __name__ == "__main__":
+    s = Solution()
+    s.letterCombinations("23")
