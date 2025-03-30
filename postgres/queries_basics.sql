@@ -1,2 +1,2 @@
-
--- Basic query practice
+j
+select * from produck;
