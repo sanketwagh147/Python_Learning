@@ -1,0 +1,111 @@
+"""Minimal async SQLAlchemy connection pool helper with Pydantic config."""
+
+from __future__ import annotations
+
+import os
+from contextlib import asynccontextmanager
+from typing import AsyncIterator, Optional, Any
+
+from pydantic import BaseModel, Field
+from sqlalchemy.ext.asyncio import (
+    AsyncEngine,
+    AsyncSession,
+    async_sessionmaker,
+    create_async_engine,
+)
+from sqlalchemy import text
+
+
+class DBConfig(BaseModel):
+    """Async DB connection pool configuration."""
+
+    # Default placeholders for database connection
+    DEFAULT_DRIVER: str = "postgresql+asyncpg"
+    DEFAULT_USER: str = "{user}"
+    DEFAULT_PASSWORD: str = "{password}"
+    DEFAULT_HOST: str = "{host}"
+    DEFAULT_PORT: str = "{port}"
+    DEFAULT_DB: str = "{database}"
+
+    database_url: str = Field(
+        default=f"{DEFAULT_DRIVER}://{DEFAULT_USER}:{DEFAULT_PASSWORD}@{DEFAULT_HOST}:{DEFAULT_PORT}/{DEFAULT_DB}",
+        description="Database URL with format: driver://user:pass@host:port/db",
+    )
+    pool_size: int = Field(default=3, description="Persistent connections in pool")
+    max_overflow: int = Field(default=15, description="Temporary extra connections")
+    pool_timeout: int = Field(default=15, description="Seconds to wait for connection")
+    pool_recycle: int = Field(
+        default=900, description="Seconds before recycling connections"
+    )
+    pool_pre_ping: bool = Field(default=True, description="Check connection liveness")
+    echo: bool = Field(default=False, description="Enable SQL echo logging")
+
+
+class AsyncDBPool:
+    """Async-only SQLAlchemy engine + session manager."""
+
+    _engine: Optional[AsyncEngine] = None
+    _maker: Optional[async_sessionmaker[AsyncSession]] = None
+
+    @classmethod
+    async def init(
+        cls,
+        config: DBConfig = DBConfig(),
+    ) -> None:
+        """Initialize async engine and sessionmaker.
+
+        Args:
+            config: DBConfig instance with connection settings
+            database_url: Override database URL (takes precedence over config)
+            **overrides: Additional engine configuration overrides
+        """
+        if cls._engine is not None:
+            return  # already initialized
+
+        cls._engine = create_async_engine(**config.model_dump())
+        cls._maker = async_sessionmaker(
+            cls._engine, expire_on_commit=False, class_=AsyncSession
+        )
+
+    @classmethod
+    async def dispose(cls) -> None:
+        """Dispose engine and clear session maker."""
+        if cls._engine is not None:
+            await cls._engine.dispose()
+            cls._engine = None
+            cls._maker = None
+
+    @classmethod
+    @asynccontextmanager
+    async def get_session(cls) -> AsyncIterator[AsyncSession]:
+        """Yield a session; rollback on exceptions."""
+        if cls._maker is None:
+            raise RuntimeError(
+                "AsyncDBPool not initialized. Call await AsyncDBPool.init()."
+            )
+
+        async with cls._maker() as session:
+            try:
+                yield session
+            except Exception:
+                await session.rollback()
+                # Raise Custom Exception
+                raise
+
+
+# FastAPI dependency
+async def get_db() -> AsyncIterator[AsyncSession]:
+    """FastAPI dependency for async DB session."""
+    async with AsyncDBPool.get_session() as session:
+        yield session
+
+
+# lifespan events
+# @app.on_event("startup")
+# async def startup():
+#     cfg = DBConfig(database_url="postgresql+asyncpg://user:pass@localhost/dbname")
+#     await AsyncDBPool.init(config=cfg)
+
+# @app.on_event("shutdown")
+# async def shutdown():
+#     await AsyncDBPool.dispose()
