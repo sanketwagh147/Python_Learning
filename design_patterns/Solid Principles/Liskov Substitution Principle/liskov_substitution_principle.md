@@ -1,14 +1,18 @@
 # Liskovs Substitution principle
 
 #### Objects of a subclass should be replaceable with objects of the superclass without affecting the correctness of the program
+
 - LSP ensures that a subclass behaves like its superclass
 - The subclass should not remove any behavior expected from super class
 
 ### Key Rules of LSP
+
 #### Method Signature Compatibility
+
 A subclass must not change the method signatures of the superclass (e.g., changing parameter types or return types in an incompatible way).
 
 Ex: violating signature compatibility
+
 ```python
 class Animal:
     def make_sound(self):
@@ -19,7 +23,9 @@ class Dog(Animal):
         return "Bark" * volume  # Violates LSP
 
 ```
+
 ex: Correct signature compatibility
+
 ```python
 class Animal:
     def make_sound(self):
@@ -32,9 +38,11 @@ class Dog(Animal):
 ```
 
 #### Preconditions Should Not Be Strengthened
+
 The subclass should not impose stricter requirements on input values compared to the superclass.
 
 Ex: violating preconditions rule
+
 ```python
 class PaymentProcessor:
     def process_payment(self, amount):
@@ -50,7 +58,9 @@ class CreditCardProcessor(PaymentProcessor):
 
 
 ```
+
 ex: Correct approach
+
 ```python
 class PaymentProcessor:
     def process_payment(self, amount):
@@ -67,11 +77,15 @@ class CreditCardProcessor(PaymentProcessor):
         self.process_payment(amount)
 
 ```
+
 #### Postconditions Should Not Be Weakened
+
 The subclass should not provide weaker guarantees than the superclass after execution.
 
 #### Incorrect approach
+
 - The subclass (PremiumAccount) weakens this guarantee by allowing overdrafts without an explicit error.
+
 ```python
 class BankAccount:
     def __init__(self, balance):
@@ -91,8 +105,10 @@ class PremiumAccount(BankAccount):
 
 ```
 
-#### Correct approach : 
+#### Correct approach
+
 The new method (withdraw_with_overdraft()) explicitly allows overdrafts but does not weaken the original guarantee.
+
 ```python
 class BankAccount:
     def __init__(self, balance):
@@ -111,10 +127,13 @@ class PremiumAccount(BankAccount):
         self.balance -= amount
         return self.balance  # Still ensures correct balance tracking
 ```
+
 #### No Unexpected Exceptions
+
 A subclass should not introduce new exceptions that the superclass does not throw.
 
 #### Incorrect approach
+
 ```python
 class PaymentProcessor:
     def process_payment(self, amount):
@@ -136,6 +155,7 @@ class CryptoPaymentProcessor(PaymentProcessor):
 The subclass (CryptoPaymentProcessor) introduces a ConnectionError, which existing client code might not be prepared to handle.
 
 #### Correct approach
+
 ```python
 class CryptoPaymentProcessor(PaymentProcessor):
     def process_payment(self, amount):
@@ -152,11 +172,13 @@ class CryptoPaymentProcessor(PaymentProcessor):
 
 
 ```
+
 Instead convert the ConnectionError into a ValueError, which is already expected by client code.
 
 This ensures that substituting CryptoPaymentProcessor for PaymentProcessor will not break existing functionality.
 
-### Conclusion:
+### Conclusion
+
 **No Unexpected Exceptions (Liskov Substitution Principle)***
 
 To follow Liskov Substitution Principle (LSP), subclasses should not introduce new exceptions that the superclass does not throw.

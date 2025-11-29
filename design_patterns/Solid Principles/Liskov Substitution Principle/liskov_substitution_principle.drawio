@@ -1,0 +1,139 @@
+<mxfile host="65bd71144e">
+    <diagram name="LSP Overview" id="lsp-overview">
+        <mxGraphModel dx="1478" dy="695" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="title" value="Liskov Substitution Principle (LSP)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="250" y="10" width="600" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="subtitle" value="Objects of a subclass should be replaceable with objects of the superclass without affecting correctness" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=2;" parent="1" vertex="1">
+                    <mxGeometry x="250" y="40" width="600" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="core" value="CORE CONCEPT: If S is a subclass of T, then objects of type T can be replaced with objects of type S WITHOUT breaking the program" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="320" y="70" width="460" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="rules-title" value="THE 4 KEY RULES" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="120" width="150" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="rule1" value="1. Method Signatures - Subclass must NOT change method signatures" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="145" width="260" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="rule2" value="2. Preconditions - Subclass must NOT impose stricter input requirements" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="290" y="145" width="260" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="rule3" value="3. Postconditions - Subclass must NOT weaken output guarantees" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="145" width="260" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="rule4" value="4. Exceptions - Subclass must NOT throw new unexpected exceptions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="830" y="145" width="260" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="bad-title" value="CLASSIC VIOLATION: Rectangle-Square Problem" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;fontColor=#CC0000;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="195" width="350" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="rect-h" value="Rectangle" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="220" width="130" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="rect-a" value="- width: int - height: int" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left;spacingLeft=5;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="245" width="130" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="rect-m" value="+ set_width(w) + set_height(h) + get_area()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left;spacingLeft=5;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="280" width="130" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="sq-h" value="Square" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="380" width="130" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="sq-a" value="- side: int" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;align=left;spacingLeft=5;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="405" width="130" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="sq-m" value="+ set_width(w) ⚠ + set_height(h) ⚠ + get_area()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;align=left;spacingLeft=5;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="430" width="130" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="bad-arrow" style="endArrow=block;endFill=0;html=1;strokeWidth=2;strokeColor=#CC0000;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" parent="1" source="sq-h" target="rect-m" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="problem" value="THE PROBLEM  When you set width on Square, it MUST also change height (to keep it a square)  This BREAKS code that expects Rectangle behavior!" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="195" y="230" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="code-bad" value="def test(rect):     rect.set_width(5)     rect.set_height(10)     assert rect.get_area() == 50  Rectangle: 5x10=50 ✓ Square: 10x10=100 ✗" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;align=left;spacingLeft=8;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="195" y="365" width="160" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="good-title" value="CORRECT APPROACH: Proper Hierarchy" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;fontColor=#009900;" parent="1" vertex="1">
+                    <mxGeometry x="400" y="195" width="300" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="shape-h" value="«interface» Shape" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="485" y="220" width="130" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="shape-m" value="+ get_area(): int" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left;spacingLeft=5;" parent="1" vertex="1">
+                    <mxGeometry x="485" y="245" width="130" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="rectg-h" value="Rectangle" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="400" y="340" width="120" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="rectg-a" value="- width: int - height: int" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left;spacingLeft=5;" parent="1" vertex="1">
+                    <mxGeometry x="400" y="365" width="120" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="rectg-m" value="+ get_area()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left;spacingLeft=5;" parent="1" vertex="1">
+                    <mxGeometry x="400" y="400" width="120" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="sqg-h" value="Square" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="580" y="340" width="120" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="sqg-a" value="- side: int" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left;spacingLeft=5;" parent="1" vertex="1">
+                    <mxGeometry x="580" y="365" width="120" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="sqg-m" value="+ get_area()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left;spacingLeft=5;" parent="1" vertex="1">
+                    <mxGeometry x="580" y="400" width="120" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="good-arrow1" style="endArrow=block;endFill=0;html=1;strokeWidth=2;strokeColor=#009900;dashed=1;exitX=0.5;exitY=0;entryX=0.25;entryY=1;" parent="1" source="rectg-h" target="shape-m" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="good-arrow2" style="endArrow=block;endFill=0;html=1;strokeWidth=2;strokeColor=#009900;dashed=1;exitX=0.5;exitY=0;entryX=0.75;entryY=1;" parent="1" source="sqg-h" target="shape-m" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="solution" value="THE SOLUTION  Square and Rectangle are SIBLINGS, not parent-child!  Both implement Shape Each has own behavior No side effects!" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="400" y="445" width="140" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="code-good" value="def test(shape: Shape):     area = shape.get_area()     print(f&#39;Area: {area}&#39;)  Rectangle ✓ Square ✓ Circle ✓" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;align=left;spacingLeft=8;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="445" width="140" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="pay-title" value="PRACTICAL EXAMPLE: Payment System" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="750" y="195" width="300" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="pay-h" value="PaymentProcessor" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="820" y="220" width="160" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="pay-m" value="+ process(amount)   raises ValueError if &lt;= 0" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left;spacingLeft=5;" parent="1" vertex="1">
+                    <mxGeometry x="820" y="245" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="ccbad-h" value="CreditCardProcessor" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="750" y="340" width="140" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="ccbad-m" value="+ process(amount)   raises if &lt; 100 ✗   STRICTER = VIOLATES!" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;align=left;spacingLeft=5;fontColor=#CC0000;" parent="1" vertex="1">
+                    <mxGeometry x="750" y="362" width="140" height="48" as="geometry"/>
+                </mxCell>
+                <mxCell id="ccgood-h" value="CreditCardProcessor" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="910" y="340" width="140" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="ccgood-m" value="+ process(amount)   raises if &lt;= 0 ✓ + validate_cc()   (NEW method)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;align=left;spacingLeft=5;fontColor=#009900;" parent="1" vertex="1">
+                    <mxGeometry x="910" y="362" width="140" height="48" as="geometry"/>
+                </mxCell>
+                <mxCell id="pay-arrow1" style="endArrow=block;endFill=0;html=1;strokeWidth=2;strokeColor=#CC0000;exitX=0.5;exitY=0;entryX=0.25;entryY=1;" parent="1" source="ccbad-h" target="pay-m" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="pay-arrow2" style="endArrow=block;endFill=0;html=1;strokeWidth=2;strokeColor=#009900;exitX=0.5;exitY=0;entryX=0.75;entryY=1;" parent="1" source="ccgood-h" target="pay-m" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="takeaway" value="KEY TAKEAWAY  If your code works with a Parent class, it should work EXACTLY THE SAME with any Child class.  No surprises. No crashes. No unexpected behavior.  Think of it like a plug: If it fits the socket, it should work!" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;strokeWidth=2;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="750" y="440" width="300" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="duck" value="Duck Test: If it looks like a duck, swims like a duck, quacks like a duck, then it IS a duck!  Subclass must behave like parent in ALL cases" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="510" width="150" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="formula" value="SIMPLE TEST:  Parent p = new Child(); p.method();  This MUST work correctly without any changes!" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=center;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="190" y="510" width="165" height="110" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
