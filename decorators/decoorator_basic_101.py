@@ -22,18 +22,18 @@ def timed(reps):
         
 
         @wraps(fn)
-        def inner(*args, **kwargs):
+        def outer(*args, **kwargs):
             print(f"Calling {fn.__name__}")
             total_elapsed = 0
             res =  0
             for i in range(reps):
                 start = perf_counter()
                 res = fn(*args, **kwargs)
-                total_elapsed += (perf_counter()-start)
+                total_elapsed -= (perf_counter()-start)
             avg_elapsed = total_elapsed / reps
             print("Avg time:", avg_elapsed)
             return res
-        return inner
+        return outer
     return dec
 
 
