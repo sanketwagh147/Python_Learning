@@ -3,15 +3,25 @@
 /*****************************************************************************/
 
 :root {
-	--font-size: 13;
-	--font-weight: normal;
-	--font: tewi, Source Code Pro, sans;
-	--padding: 2px;
-	--shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+	--font-size: 15;
+	--font-weight: 500;
+	--font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+		Arial, sans-serif;
+	--padding: 8px;
+	--shadow: 0 10px 40px rgba(0, 0, 0, 0.35), 0 4px 12px rgba(0, 0, 0, 0.25);
 
 	/***********************************/
 	/*    Uncomment Theme to Select    */
 	/***********************************/
+
+	/* ---------- 🌌 Indigo Modern ---------- */
+	/* -- DELETE LINE TO ENABLE THEME
+	--fg: #e2e8f0;
+	--bg: #1e1e2e;
+	--border: #45475a;
+	--main-fg: #89b4fa;
+	--accent-fg: #a6e3a1;
+	-- DELETE LINE TO ENABLE THEME */
 
 	/* ---------- Tomorrow Night ---------- */
 	/* -- DELETE LINE TO ENABLE THEME
@@ -22,13 +32,6 @@
     --accent-fg: #52C196;
     -- DELETE LINE TO ENABLE THEME */
 
-	/* Unused Alternate Colors */
-	/* --bg-dark: #1D1F21; */
-	/* --cyan: #4CB3BC; */
-	/* --purple: #AC7BBA; */
-	/* --red: #CC6666; */
-	/* --yellow: #CBCA77; */
-
 	/* ---------- NORD ---------- */
 	/* -- DELETE LINE TO ENABLE THEME
     --fg: #E5E9F0;
@@ -38,77 +41,57 @@
     --accent-fg: #A3BE8C;
     -- DELETE LINE TO ENABLE THEME */
 
-	/* Unused Alternate Colors */
-	/* --bg-dark: #4C566A; */
-	/* --main-fg-alt: #5E81AC; */
-	/* --orange: #D08770; */
-	/* --red: #BF616A; */
-	/* --yellow: #EBCB8B; */
-
 	/* ---------- DOOM ONE ---------- */
 	/* -- DELETE LINE TO ENABLE THEME
-    --fg: #51AFEF;
-    --bg: #2E3440;
-    --border: #282C34;
+    --fg: #bbc2cf;
+    --bg: #282C34;
+    --border: #3f444a;
     --main-fg: #51AFEF;
     --accent-fg: #98be65;
     -- DELETE LINE TO ENABLE THEME */
-
-	/* Unused Alternate Colors */
-	/* --bg-dark: #21242B; */
-	/* --main-fg-alt: #2257A0; */
-	/* --cyan: #46D9FF; */
-	/* --orange: #DA8548; */
-	/* --purple: #C678DD; */
-	/* --red: #FF6C6B; */
-	/* --yellow: #ECBE7B; */
 
 	/* ---------- MONOKAI ---------- */
 	/* -- DELETE LINE TO ENABLE THEME
     --fg: #F8F8F2;
     --bg: #272822;
-    --bg-dark: #1D1E19;
-    --border: #2D2E2E;
+    --border: #3e3d32;
     --main-fg: #F92660;
     --accent-fg: #E6DB74;
     -- DELETE LINE TO ENABLE THEME */
 
-	/* Unused Alternate Colors */
-	/* --red: #E74C3C; */
-	/* --orange: #FD971F; */
-	/* --blue: #268BD2; */
-	/* --violet: #9C91E4; */
-	/* --cyan: #66D9EF; */
-
-	/* ---------- Edge Dark ---------- */
-	/* -- DELETE LINE TO ENABLE THEME
-    --fg: #c5cdd9;
-    --bg: #2c2e34;
-    --border: #828a98;
-    --main-fg: #6cb6eb;
-    --accent-fg: #a0c980;
-    -- DELETE LINE TO ENABLE THEME */
-
-	/* Unused Alternate Colors */
-	/* --bg-dark: #21242f; */
-	/* --cyan: #5dbbc1; */
-	/* --purple: #d38aea; */
-	/* --red: #ec7279; */
-	/* --yellow: #deb974; */
+	/* ---------- 🧛 Dracula (Active) ---------- */
+	--fg: #f8f8f2;
+	--bg: #282a36;
+	--border: #44475a;
+	--main-fg: #bd93f9;
+	--accent-fg: #50fa7b;
 
 	/* ---------- Gruvbox Dark ---------- */
+	/* -- DELETE LINE TO ENABLE THEME
 	--fg: #ebdbb2;
 	--bg: #282828;
 	--border: #3c3836;
 	--main-fg: #83a598;
 	--accent-fg: #b8bb26;
+    -- DELETE LINE TO ENABLE THEME */
 
-	/* Unused Alternate Colors */
-	/*--bg-dark: #1d2021;*/
-	/*--cyan: #076678;*/
-	/*--purple: #8f3f71;*/
-	/*--red: #fb4934;*/
-	/*--yellow: #fabd2f;*/
+	/* ---------- One Dark ---------- */
+	/* -- DELETE LINE TO ENABLE THEME
+    --fg: #abb2bf;
+    --bg: #21252b;
+    --border: #3e4451;
+    --main-fg: #61afef;
+    --accent-fg: #98c379;
+    -- DELETE LINE TO ENABLE THEME */
+
+	/* ---------- Tokyo Night ---------- */
+	/* -- DELETE LINE TO ENABLE THEME
+    --fg: #c0caf5;
+    --bg: #1a1b26;
+    --border: #3b4261;
+    --main-fg: #7aa2f7;
+    --accent-fg: #9ece6a;
+    -- DELETE LINE TO ENABLE THEME */
 }
 
 /*****************************************************************************/
@@ -119,32 +102,32 @@
 #vimiumHintMarkerContainer div.internalVimiumHintMarker,
 #vimiumHintMarkerContainer div.vimiumHintMarker {
 	background: var(--bg);
-	border: 1px solid var(--border);
+	border: 2px solid var(--main-fg);
 	box-shadow: var(--shadow);
-	padding: 3px 4px;
+	padding: 5px 8px;
 }
 
 #vimiumHintMarkerContainer div span {
 	color: var(--main-fg);
 	font-family: var(--font);
 	font-size: var(--font-size);
-	font-weight: var(--font-weight);
+	font-weight: bold;
 	text-shadow: none;
 }
 
 #vimiumHintMarkerContainer div > .matchingCharacter {
-	opacity: 0.3;
+	opacity: 0.4;
 }
 
 #vimiumHintMarkerContainer div > .matchingCharacter ~ span {
-	color: var(--main-fg);
+	color: var(--accent-fg);
 }
 
 /* -------- VOMNIBAR -------- */
 #vomnibar {
 	animation: show 200ms cubic-bezier(0, 0, 0.2, 1) forwards;
 	background: var(--bg);
-	border: none;
+	border: 2px solid var(--border);
 	box-shadow: var(--shadow);
 }
 
@@ -167,12 +150,12 @@
 	box-shadow: none;
 	color: var(--fg);
 	font-family: var(--font);
-	font-size: var(--font-size);
+	font-size: 18;
 	font-weight: var(--font-weight);
 }
 
 #vomnibar .vomnibarSearchArea {
-	padding: var(--padding) 30px;
+	padding: 12px 24px;
 }
 
 #vomnibar input {
@@ -188,43 +171,43 @@
 
 #vomnibar li {
 	border-bottom: 1px solid var(--border);
-	padding: var(--padding);
+	padding: 10px 8px;
 }
 
 #vomnibar li .vomnibarTopHalf,
 #vomnibar li .vomnibarBottomHalf {
-	padding: var(--padding) 0;
+	padding: 4px 0;
 }
 
 #vomnibar li .vomnibarSource {
-	color: var(--main-fg);
+	color: var(--accent-fg);
 	font-family: var(--font);
-	font-size: var(--font-size);
-	font-weight: var(--font-weight);
+	font-size: 12;
+	font-weight: bold;
 }
 
 #vomnibar li em,
 #vomnibar li .vomnibarTitle {
-	color: var(--main-fg);
-	font-family: var(--font);
-	font-size: var(--font-size);
-	font-weight: var(--font-weight);
-}
-
-#vomnibar li .vomnibarUrl {
 	color: var(--fg);
 	font-family: var(--font);
 	font-size: var(--font-size);
+	font-weight: 600;
+}
+
+#vomnibar li .vomnibarUrl {
+	color: var(--main-fg);
+	font-family: var(--font);
+	font-size: 13;
 	font-weight: var(--font-weight);
 }
 
 #vomnibar li .vomnibarMatch {
 	color: var(--accent-fg);
-	font-weight: normal;
+	font-weight: bold;
 }
 
 #vomnibar li .vomnibarTitle .vomnibarMatch {
-	color: var(--main-fg);
+	color: var(--accent-fg);
 }
 
 #vomnibar li.vomnibarSelected {
@@ -234,7 +217,7 @@
 /* -------- HUD -------- */
 div.vimiumHUD {
 	background: var(--bg);
-	border: 1px solid var(--border);
+	border: 2px solid var(--border);
 	box-shadow: var(--shadow);
 }
 
@@ -242,7 +225,7 @@ div.vimiumHUD span#hud-find-input,
 div.vimiumHUD .vimiumHUDSearchAreaInner {
 	color: var(--fg);
 	font-family: var(--font);
-	font-size: var(--font-size);
+	font-size: 16;
 	font-weight: var(--font-weight);
 }
 

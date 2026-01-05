@@ -1,0 +1,21 @@
+Reusable SQLAlchemy Pool / FastAPI Dependency
+===========================================
+
+This repo now includes a reusable, instance-based DB pool/session module here:
+
+	postgres/db_pool/
+
+Why this design:
+- Works with any database supported by SQLAlchemy (Postgres, MySQL, SQLite, etc.)
+- No globals: you create a `db = SQLAlchemyDatabase(cfg)` (sync) or
+	`db = AsyncSQLAlchemyDatabase(cfg)` (async) and inject it (SOLID-friendly)
+- FastAPI integration via:
+	- `make_fastapi_lifespan(db)`
+	- `make_sync_session_dependency(db)` / `make_async_session_dependency(db)`
+
+Examples:
+- postgres/db_pool/examples/fastapi_sync_app.py
+- postgres/db_pool/examples/fastapi_async_app.py
+
+Tip:
+If you use SQLite, set pool options to None (pooling is usually not needed).
