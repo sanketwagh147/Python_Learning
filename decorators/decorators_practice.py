@@ -27,25 +27,31 @@ def time_it(fn):
 
     return decorator
 
-def cache_me(fn):
+def cache_me(fn, ttl=120):  # ttl = 2 minutes (120 seconds)
     
-    _cache = {}
+    _cache = {}  # stores (result, timestamp)
 
     @wraps(fn)
     def decorator(*args):
+        current_time = time.time()
         
         if args in _cache:
-            logger.info(f"Fetching from cache for args: {args}")
-            return _cache[args]
+            result, cached_time = _cache[args]
+            # Check if cache entry has expired
+            if current_time - cached_time < ttl:
+                logger.info(f"Fetching from cache for args: {args}")
+                return result
+            else:
+                logger.info(f"Cache expired for args: {args}, recalculating...")
 
-        else:
-            logger.info(f"Calculating result for args: {args}")
-            result = fn(*args)
-            _cache[args] = result
+        logger.info(f"Calculating result for args: {args}")
+        result = fn(*args)
+        _cache[args] = (result, current_time)
 
-            return result
+        return result
 
     return decorator
+
 
 @time_it
 @cache_me
