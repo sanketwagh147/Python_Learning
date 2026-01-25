@@ -1,9 +1,10 @@
 # Dependency Inversion
+
 - High-level modules (business logic) should not depend on low-level modules (implementation details). Both should depend on abstractions (interfaces or abstract classes).
 - Abstractions should not depend on details. Instead, details (implementations) should depend on abstractions.
 
-
 ### Example 1 (violates dip)
+
 ```python
 class MySQLDatabase:
     def connect(self):
@@ -19,9 +20,11 @@ class DataService:
 ```
 
 #### Problem:
- `DataService` is tightly coupled to `MySQLDatabase`, making it difficult to switch to another database (e.g., PostgreSQL).
+
+`DataService` is tightly coupled to `MySQLDatabase`, making it difficult to switch to another database (e.g., PostgreSQL).
 
 ### Example 1 (follows dip )
+
 ```python
 from abc import ABC, abstractmethod
 
@@ -54,10 +57,12 @@ db = MySQLDatabase()  # We can swap this with PostgreSQLDatabase easily
 service = DataService(db)
 service.fetch_data()
 ```
+
 Here `DataService`, `PostgreSQLDatabase` and `MySQLDatabase` all depend on abstractions
 
 ### Example 2 ( violates dop)
-```python 
+
+```python
 class PayPalPayment:
     def process_payment(self, amount):
         print(f"Processing payment of ${amount} via PayPal.")
@@ -71,11 +76,14 @@ class OrderService:
         print("Order placed successfully!")
 
 ```
+
 #### problems
+
 - The `OrderService` is directly dependent on `PayPalPayment`.
 - If we want to switch to another payment gateway (e.g., Stripe), we must modify `OrderService`.
 
 ### solution (follows DIP):
+
 ```python
 from abc import ABC, abstractmethod
 
@@ -110,11 +118,11 @@ order_service.checkout(100)
 ```
 
 #### Benefits
+
 - `OrderService` depends on `PaymentProcessor` (abstraction) instead of a concrete class.
-Easily switch between different payment gateways without modifying `OrderService`.
+  Easily switch between different payment gateways without modifying `OrderService`.
 - Makes testing easier by mocking the `PaymentProcessor`.
 
-
 ## Conclusion
-DIP helps build modular, maintainable, and scalable software by decoupling dependencies. It is best implemented with Dependency Injection (DI) and design patterns like Pub-Sub, Factory, and Strategy Patterns.
 
+DIP helps build modular, maintainable, and scalable software by decoupling dependencies. It is best implemented with Dependency Injection (DI) and design patterns like Pub-Sub, Factory, and Strategy Patterns.
