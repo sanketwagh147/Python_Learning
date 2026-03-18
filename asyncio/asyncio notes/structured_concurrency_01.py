@@ -17,6 +17,7 @@ async def get_data() -> None:
             t3 = tg.create_task(simulate_io_operation("third task", delay=3))
             t4 = tg.create_task(simulate_io_operation("fourth task", delay=4))
             t5 = tg.create_task(simulate_io_operation("fifth task", delay=5))
+            t6 = tg.create_task(asyncio.to_thread(simulate_io_operation_sync, "sixth task", delay=6))
             # t6 = tg.create_task(simulate_http_error(503))
     except* Exception as e:
         print("An error occurred:")
@@ -26,8 +27,29 @@ async def get_data() -> None:
     print("task 3 result:", t3.result())
     print("task 4 result:", t4.result())
     print("task 5 result:", t5.result())
-    # print("task 6 result:", t6.result())
+    print("task 6 result:", t6.result())
     print("All tasks completed")
+
+
+async def demonstrate_timeout_and_cancellation() -> None:
+    print("\n--- Starting Timeout & Cancellation Example ---")
+    try:
+        # Set a timeout of 2.5 seconds for the entire block
+        async with asyncio.timeout(2.5):
+            async with asyncio.TaskGroup() as tg:
+                # This task finishes in 1s (within timeout)
+                t1 = tg.create_task(simulate_io_operation("fast task", delay=1))
+                # This task finishes in 5s (will be CANCELLED)
+                t2 = tg.create_task(simulate_io_operation("slow task", delay=5))
+    
+    except TimeoutError:
+        print("\n\U000023F0  Timeout triggered! 'slow task' was cancelled.")
+    
+    # Check results (t2 will be cancelled, so no result)
+    if not t1.cancelled():
+        print(f"Fast task result: {t1.result()}")
+    
+    print("--- End Example ---\n")
 
 
 async def run_in_process_pool(numbers:Iterable[int])-> list[int]:
@@ -49,10 +71,14 @@ async def run_in_process_pool(numbers:Iterable[int])-> list[int]:
 
 async def main():
     start_time = time.perf_counter()
+    
+    # Run the timeout/cancellation example
+    # await demonstrate_timeout_and_cancellation()
+
     # await get_data()
     async with asyncio.TaskGroup() as tg:
         tg.create_task(get_data())
-        tg.create_task(run_in_process_pool([1,2,3]))
+        tg.create_task(run_in_process_pool([1,2,3,4,5,6]))
 
     # Using process pool
 
