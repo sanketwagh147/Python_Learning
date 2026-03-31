@@ -1,0 +1,280 @@
+-- =============================================================================
+-- Advanced Interview-Level SQL Problems
+-- Database: postgresql://sanket@localhost:5432/local_db
+-- 
+-- These are commonly asked in FAANG, startups, and product company interviews.
+-- Each problem has thought process and approach hints, but NO solutions.
+-- Difficulty: 🔴🔴 All problems are Hard / Interview Level
+-- =============================================================================
+
+
+-- =============================================================================
+-- PROBLEM 1: "Consecutive Active Days" (E-commerce / Engagement Metrics)
+-- =============================================================================
+-- 
+-- Context: Product managers track consecutive ordering streaks to measure
+-- customer engagement. Streak = consecutive days with at least one order.
+--
+-- Task: Find the longest streak of consecutive days each customer placed 
+-- at least one order. If a customer's max streak is >= 3 days, flag them
+-- as "highly engaged".
+--
+-- Expected output:
+-- customer_name | streak_start | streak_end | streak_length | engagement_flag
+--
+-- THOUGHT PROCESS:
+-- 1. First, get unique order dates per customer (customer may have multiple orders on same day)
+-- 2. This is the "gaps and islands" problem on dates
+-- 3. Assign row numbers: ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_date::date)
+-- 4. Subtract row_number in days from order_date -> consecutive dates get same group
+--    order_date - (row_number * INTERVAL '1 day') = group_identifier
+-- 5. Group by customer_id and group_identifier, count = streak length
+-- 6. Find MAX streak per customer
+--
+-- Edge cases to consider:
+-- - Multiple orders on same day (deduplicate first)
+-- - Customer with only 1 order (streak = 1)
+-- - Orders on consecutive days but spanning month boundaries
+
+
+-- =============================================================================
+-- PROBLEM 2: "Price Change Impact Analysis" (Pricing / Revenue)
+-- =============================================================================
+--
+-- Context: The business wants to understand how salary changes affect
+-- employee retention and productivity.
+--
+-- Task: For each salary change event, calculate:
+-- 1. The % change from previous salary
+-- 2. Whether the employee's productivity (hours_worked in projects) increased
+--    or decreased in the 6 months AFTER the salary change vs 6 months BEFORE
+-- 3. Rank departments by how effectively salary increases translate to productivity
+--
+-- Expected output:
+-- dept_name | emp_name | change_date | pct_salary_change | 
+-- hours_before | hours_after | productivity_change_pct | dept_effectiveness_rank
+--
+-- THOUGHT PROCESS:
+-- 1. Start with salary_history table for change events
+-- 2. For each change, look at employee_projects.hours_worked in date windows:
+--    BEFORE: assigned_date BETWEEN change_date - INTERVAL '6 months' AND change_date
+--    AFTER: assigned_date BETWEEN change_date AND change_date + INTERVAL '6 months'
+-- 3. This requires lateral joins or correlated subqueries with date ranges
+-- 4. Department effectiveness = AVG(productivity_change) per department
+-- 5. RANK() OVER (ORDER BY dept_effectiveness DESC)
+--
+-- Key challenge: The employee_projects table has assigned_date but hours_worked
+-- is cumulative, not per-period. You may need to approximate.
+
+
+-- =============================================================================
+-- PROBLEM 3: "Market Basket Analysis - Product Affinity" (Recommendation Engine)
+-- =============================================================================
+--
+-- Context: Build the backend for a "Customers who bought X also bought Y" feature.
+--
+-- Task: For each product, find the top 3 most frequently co-purchased products.
+-- Calculate the "lift" metric: 
+--   lift(A,B) = P(A and B) / (P(A) * P(B))
+--   where P(A) = orders containing A / total orders
+-- Lift > 1 means products are bought together more than random chance.
+--
+-- Expected output:
+-- product_a | product_b | times_together | lift | rank_for_product_a
+--
+-- THOUGHT PROCESS:
+-- 1. Self-join order_items: find all pairs of products in the same order
+-- 2. Count co-occurrences (times_together)
+-- 3. Calculate individual product frequencies: count of orders containing product / total orders
+-- 4. Lift = (co_occurrence_count / total_orders) / (freq_A * freq_B)
+-- 5. For each product, rank companions by lift or co-occurrence count
+-- 6. Filter to top 3 per product using ROW_NUMBER or DENSE_RANK
+--
+-- Key SQL concepts tested:
+-- - Self-join with deduplication (product_a < product_b)
+-- - Window functions for ranking
+-- - Probability calculations with aggregates
+-- - CTEs for building up intermediate results
+
+
+-- =============================================================================
+-- PROBLEM 4: "Anomaly Detection in Orders" (Fraud Detection)
+-- =============================================================================
+--
+-- Context: The risk team wants to flag potentially fraudulent orders.
+-- An order is suspicious if:
+-- 1. Order amount is > 3 standard deviations above customer's average order
+-- 2. More than 3 orders placed by same customer within 1 hour
+-- 3. Order total exceeds customer's credit limit
+-- 4. Customer's first order is above 50,000 (unusual for new customers)
+--
+-- Task: Create a fraud risk score (0-100) based on how many flags are triggered.
+-- Show all flagged orders with their risk details.
+--
+-- Expected output:
+-- order_id | customer_name | order_total | risk_score | flags_triggered
+--
+-- THOUGHT PROCESS:
+-- 1. CTE1: Calculate per-order totals (SUM of order_items)
+-- 2. CTE2: Calculate per-customer stats (avg_order, stddev_order)
+-- 3. CTE3: Check velocity - count orders within 1-hour windows using:
+--    COUNT(*) OVER (PARTITION BY customer_id ORDER BY order_date 
+--                   RANGE BETWEEN INTERVAL '1 hour' PRECEDING AND CURRENT ROW)
+-- 4. CTE4: First order per customer using ROW_NUMBER
+-- 5. Join CTEs and apply flag logic with CASE WHEN
+-- 6. Risk score = (flags_count / 4) * 100
+--
+-- Advanced: Use STRING_AGG to list which specific flags were triggered.
+-- Window frame RANGE BETWEEN for time-based windows is a key advanced concept.
+
+
+-- =============================================================================
+-- PROBLEM 5: "Revenue Attribution with Time Decay" (Marketing Analytics)
+-- =============================================================================
+--
+-- Context: When a customer places an order, which employee in Sales/Marketing
+-- deserves credit? Use a time-decay model where recent customer orders 
+-- attribute more credit.
+--
+-- Task: Assuming each Sales/Marketing employee "influenced" customers in their
+-- city, calculate revenue attribution using a time-decay factor:
+--   attribution = order_revenue * e^(-0.1 * days_since_employee_hire)
+-- (Employees who joined recently "influenced" more recent growth)
+--
+-- Expected output:
+-- emp_name | dept | city_covered | total_attributed_revenue | order_count
+--
+-- THOUGHT PROCESS:
+-- 1. Link employees to customers via city (employees.dept_id IN Sales/Marketing,
+--    departments.location as their city, customers.city)
+-- 2. For each order, calculate days between employee hire_date and order_date
+-- 3. Apply decay: EXP(-0.1 * days_between / 365) as decay_factor
+-- 4. revenue_attribution = order_total * decay_factor
+-- 5. Sum per employee
+--
+-- Key concepts tested: Mathematical functions (EXP), creative JOINs on
+-- non-FK columns, date arithmetic, business logic translation to SQL.
+-- Discuss: Why might this model be unfair? What are better attribution models?
+
+
+-- =============================================================================
+-- PROBLEM 6: "Recursive Bill of Materials" (Manufacturing / Inventory)
+-- =============================================================================
+--
+-- Context: The category hierarchy represents a product taxonomy.
+-- Find the total revenue at each level of the hierarchy, rolling up 
+-- child revenue to parent.
+--
+-- Task: Using a recursive CTE on the categories table:
+-- 1. Calculate revenue for leaf categories (categories with products)
+-- 2. Roll up revenue to parent categories
+-- 3. Show the tree with indentation based on level
+-- 4. Calculate what % of parent's revenue each child represents
+--
+-- Expected output:
+-- level | indent_name | own_revenue | rolled_up_revenue | pct_of_parent
+--
+-- THOUGHT PROCESS:
+-- 1. Recursive CTE to build category tree with levels
+-- 2. Calculate leaf revenue from order_items -> products -> categories
+-- 3. Second recursive CTE (or post-processing) to roll up bottom-to-top
+--    This is the tricky part - standard recursive CTEs go top-down.
+--    For bottom-up: reverse the recursion or use a materialized intermediate.
+-- 4. LPAD or REPEAT(' ', level * 2) || category_name for indentation
+--
+-- Alternative approach: Calculate all revenues in a CTE, then use the 
+-- recursive hierarchy to accumulate. SUM over all descendant categories.
+
+
+-- =============================================================================
+-- PROBLEM 7: "Session Analysis" (Web Analytics Pattern)
+-- =============================================================================
+--
+-- Context: Treat each customer's orders as "sessions". A new session starts
+-- when the gap between orders exceeds 30 days.
+--
+-- Task: 
+-- 1. Assign session IDs to each customer's orders (new session after 30-day gap)
+-- 2. Calculate per-session: order count, total revenue, session duration
+-- 3. Find the average orders per session and revenue per session by customer tier
+-- 4. Identify customers whose session frequency is increasing (more sessions per quarter)
+--
+-- Expected output (Part 1):
+-- customer | session_id | session_start | session_end | orders | revenue | duration_days
+--
+-- THOUGHT PROCESS:
+-- 1. LAG(order_date) OVER (PARTITION BY customer_id ORDER BY order_date) to get previous order date
+-- 2. Flag new sessions: CASE WHEN order_date - lag_date > 30 OR lag_date IS NULL THEN 1 ELSE 0
+-- 3. Session ID = SUM(session_flag) OVER (PARTITION BY customer_id ORDER BY order_date)
+-- 4. Group by customer + session_id for session stats
+-- 5. For trend analysis: count sessions per quarter, compare Q-over-Q
+--
+-- This is the same "gaps and islands" pattern as Problem 1 but with a 
+-- configurable gap threshold instead of consecutive dates.
+
+
+-- =============================================================================
+-- PROBLEM 8: "Inventory Optimization - Reorder Point" (Supply Chain)
+-- =============================================================================
+--
+-- Context: Calculate optimal reorder points for products based on 
+-- historical demand patterns.
+--
+-- Task:
+-- 1. Calculate average daily demand per product (from orders)
+-- 2. Calculate demand variability (standard deviation)
+-- 3. Assuming 7-day lead time for restocking:
+--    Safety stock = Z-score(95%) * stddev_demand * sqrt(lead_time)
+--    Reorder point = (avg_daily_demand * lead_time) + safety_stock
+-- 4. Compare calculated reorder point vs current reorder_level in products table
+-- 5. Flag products where current reorder_level is too low
+--
+-- Expected output:
+-- product_name | avg_daily_demand | demand_stddev | safety_stock | 
+-- calculated_reorder_point | current_reorder_level | needs_update
+--
+-- THOUGHT PROCESS:
+-- 1. Expand orders by day: For each product, count quantity sold per day
+--    Use generate_series for all dates in range to include zero-sale days
+-- 2. AVG and STDDEV_POP of daily quantities
+-- 3. Z-score for 95% confidence = 1.645
+-- 4. Apply formulas: safety_stock = 1.645 * stddev * sqrt(7)
+--    reorder_point = avg * 7 + safety_stock
+-- 5. Compare with products.reorder_level
+--
+-- Key concepts: Statistical functions, generate_series for date gaps,
+-- mathematical formulas in SQL, practical business application.
+
+
+-- =============================================================================
+-- TIPS FOR SQL INTERVIEWS
+-- =============================================================================
+--
+-- 1. ALWAYS clarify requirements before writing. Ask about:
+--    - Edge cases (NULL handling, empty results)
+--    - Performance expectations (is this a one-time report or API query?)
+--    - Data volume (millions vs thousands of rows changes approach)
+--
+-- 2. Start simple, then optimize:
+--    - First write a correct solution, even if slow
+--    - Then optimize with indexes, CTEs, window functions
+--    - Show you can think about trade-offs
+--
+-- 3. Common patterns to master:
+--    - Gaps and Islands (consecutive sequences)
+--    - Running totals with resets
+--    - Top-N per group (ROW_NUMBER + PARTITION BY)
+--    - Pivot/Unpivot (CASE WHEN aggregation)
+--    - Correlated subqueries vs JOINs (performance)
+--    - Recursive CTEs (hierarchies, graphs)
+--    - Window function frames (ROWS vs RANGE vs GROUPS)
+--
+-- 4. PostgreSQL-specific features to know:
+--    - FILTER clause with aggregates
+--    - generate_series for data generation
+--    - LATERAL joins
+--    - Array aggregation and operations
+--    - JSONB for semi-structured data
+--    - CTEs that modify data (INSERT/UPDATE/DELETE in CTEs)
+--    - DISTINCT ON for top-1 per group
+--    - EXPLAIN (ANALYZE, BUFFERS) for performance analysis
