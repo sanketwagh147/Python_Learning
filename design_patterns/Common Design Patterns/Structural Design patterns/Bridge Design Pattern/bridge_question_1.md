@@ -29,7 +29,7 @@ sms = SMSChannel()
 
 urgent_email = UrgentNotification(email)
 urgent_email.notify("Server Down", "Database unreachable")
-# → [EMAIL] 🚨 URGENT: Server Down — Database unreachable
+# → [EMAIL] URGENT: Server Down — Database unreachable
 
 normal_sms = NormalNotification(sms)
 normal_sms.notify("Reminder", "Meeting at 3pm")
