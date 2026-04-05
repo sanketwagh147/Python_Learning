@@ -15,3 +15,4 @@ venv/**
 docker_files/Docker Course Files/** 
 tmux/tmux_cheatsheet.md
 docker_files/docker_laravel/src/** 
+.DS_Store
