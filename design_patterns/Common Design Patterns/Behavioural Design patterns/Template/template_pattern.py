@@ -44,6 +44,14 @@ class Coffee(Beverage):
     def add_condiments(self):
         print("Adding sugar and milk")
 
+class ColdCoffee(Beverage):
+    def brew(self):
+        print("Brewing coffee grounds")
+
+    def add_condiments(self):
+        print("Adding sugar and milk")
+        print("Adding ice cubes")
+
 
 # Usage
 tea = Tea()
@@ -56,8 +64,12 @@ tea.prepare()
 
 coffee = Coffee()
 coffee.prepare()
+
 # Output:
 # Boiling water
 # Brewing coffee grounds
 # Pouring into cup
 # Adding sugar and milk
+
+cold_coffee = ColdCoffee()
+cold_coffee.prepare()
