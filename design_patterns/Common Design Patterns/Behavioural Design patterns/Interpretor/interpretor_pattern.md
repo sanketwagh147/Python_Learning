@@ -123,6 +123,29 @@ Common examples include:
 
 The Interpreter Pattern works best for small languages. Once the grammar becomes large, deeply nested, or frequently changing, this pattern starts to feel heavy.
 
+### Real-World Example: Expense Approval Policy
+
+One practical use case is an internal approval engine for employee expenses.
+
+Example rule:
+
+- approve if the requester is an admin
+- or approve if the requester is the budget owner
+- or approve if the requester is a finance manager and the amount is under 10,000
+
+This becomes a small language of reusable expressions:
+
+- `RoleIs("admin")`
+- `BudgetOwnerRule()`
+- `DepartmentIs("finance")`
+- `AmountLessThan(10_000)`
+- `AndRule(...)`
+- `OrRule(...)`
+
+At runtime, the request details act as the context, and the root expression decides whether the expense is approved.
+
+A runnable Python version of this example is included in `interpretor_real_world_example.py` in this folder.
+
 That is why it is a good fit for:
 
 - mini calculators
