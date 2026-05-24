@@ -1,13 +1,3 @@
-"""
-================================================================================
-  DECORATORS — From Fundamentals to Production-Ready Mastery
-================================================================================
-  Author: Senior Software Engineer Practice Guide
-  Goal:   Understand decorators at the dunder-method level, use them in
-          production, avoid common pitfalls, and build muscle memory.
-================================================================================
-"""
-
 # ─────────────────────────────────────────────────────────────────────────────
 # SECTION 1: UNDER THE HOOD — How Decorators Actually Work
 # ─────────────────────────────────────────────────────────────────────────────
@@ -41,6 +31,7 @@ The call chain:
 
 # ── Proof: A class as a decorator via __call__ ──────────────────────────────
 
+
 class CountCalls:
     """Decorator implemented as a class — demonstrates __call__ dunder."""
 
@@ -51,7 +42,9 @@ class CountCalls:
     def __call__(self, *args, **kwargs):
         """This is what gets invoked every time the decorated fn is called."""
         self.call_count += 1
-        print(f"[CountCalls] {self.func.__name__} has been called {self.call_count} time(s)")
+        print(
+            f"[CountCalls] {self.func.__name__} has been called {self.call_count} time(s)"
+        )
         return self.func(*args, **kwargs)
 
 
@@ -90,11 +83,12 @@ def rate_limit(max_calls: int, period: float = 1.0):
         def call_api(endpoint):
             ...
     """
-    def decorator(func):
-        timestamps = deque()          # sliding window of call timestamps
-        lock = threading.Lock()       # thread safety
 
-        @functools.wraps(func)        # preserves __name__, __doc__, __module__
+    def decorator(func):
+        timestamps = deque()  # sliding window of call timestamps
+        lock = threading.Lock()  # thread safety
+
+        @functools.wraps(func)  # preserves __name__, __doc__, __module__
         def wrapper(*args, **kwargs):
             with lock:
                 now = time.monotonic()
@@ -106,7 +100,9 @@ def rate_limit(max_calls: int, period: float = 1.0):
                 if len(timestamps) >= max_calls:
                     sleep_time = period - (now - timestamps[0])
                     if sleep_time > 0:
-                        print(f"[rate_limit] Throttling {func.__name__} for {sleep_time:.3f}s")
+                        print(
+                            f"[rate_limit] Throttling {func.__name__} for {sleep_time:.3f}s"
+                        )
                         time.sleep(sleep_time)
 
                     # Re-check after sleeping
@@ -122,6 +118,7 @@ def rate_limit(max_calls: int, period: float = 1.0):
         wrapper._timestamps = timestamps
         wrapper._lock = lock
         return wrapper
+
     return decorator
 
 
@@ -138,15 +135,19 @@ def fetch_data(url: str) -> str:
 
 # ── Another production example: @retry with exponential backoff ─────────────
 
-def retry(max_attempts: int = 3, backoff_factor: float = 0.5, exceptions: tuple = (Exception,)):
+
+def retry(
+    max_attempts: int = 3, backoff_factor: float = 0.5, exceptions: tuple = (Exception,)
+):
     """
     Retries the decorated function on failure with exponential backoff.
-    
+
     Usage:
         @retry(max_attempts=3, backoff_factor=0.5, exceptions=(ConnectionError, TimeoutError))
         def unreliable_api_call():
             ...
     """
+
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
@@ -158,23 +159,31 @@ def retry(max_attempts: int = 3, backoff_factor: float = 0.5, exceptions: tuple 
                     last_exception = e
                     if attempt < max_attempts:
                         wait = backoff_factor * (2 ** (attempt - 1))
-                        print(f"[retry] {func.__name__} attempt {attempt} failed: {e}. "
-                              f"Retrying in {wait:.1f}s...")
+                        print(
+                            f"[retry] {func.__name__} attempt {attempt} failed: {e}. "
+                            f"Retrying in {wait:.1f}s..."
+                        )
                         time.sleep(wait)
                     else:
-                        print(f"[retry] {func.__name__} failed after {max_attempts} attempts.")
+                        print(
+                            f"[retry] {func.__name__} failed after {max_attempts} attempts."
+                        )
             raise last_exception
+
         return wrapper
+
     return decorator
 
 
 # ── Production example: @cache_with_ttl — time-based caching ───────────────
+
 
 def cache_with_ttl(ttl_seconds: float = 60.0):
     """
     Caches function results with a time-to-live.  Thread-safe.
     Unlike functools.lru_cache, entries expire after ttl_seconds.
     """
+
     def decorator(func):
         cache = {}
         lock = threading.Lock()
@@ -208,6 +217,7 @@ def cache_with_ttl(ttl_seconds: float = 60.0):
         wrapper.clear_cache = clear_cache
         wrapper._cache = cache
         return wrapper
+
     return decorator
 
 
@@ -227,31 +237,39 @@ def cache_with_ttl(ttl_seconds: float = 60.0):
 # │   - pytest fixtures that match by name                                 │
 # └─────────────────────────────────────────────────────────────────────────┘
 
+
 # BAD
 def bad_decorator(func):
     def wrapper(*args, **kwargs):
         return func(*args, **kwargs)
+
     return wrapper
+
 
 @bad_decorator
 def important_function():
     """This docstring will be LOST."""
     pass
 
+
 # print(important_function.__name__)  # "wrapper" ← WRONG
 # print(important_function.__doc__)   # None       ← LOST
+
 
 # GOOD
 def good_decorator(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         return func(*args, **kwargs)
+
     return wrapper
+
 
 @good_decorator
 def important_function_v2():
     """This docstring is preserved."""
     pass
+
 
 # print(important_function_v2.__name__)  # "important_function_v2" ← CORRECT
 # print(important_function_v2.__doc__)   # "This docstring is preserved."
@@ -267,12 +285,15 @@ def important_function_v2():
 # BAD — one shared counter for ALL decorated functions
 call_log = []  # ← shared mutable state!
 
+
 def log_calls_bad(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         call_log.append(func.__name__)  # ALL functions write to same list
         return func(*args, **kwargs)
+
     return wrapper
+
 
 # GOOD — each decorated function gets its own state
 def log_calls_good(func):
@@ -282,6 +303,7 @@ def log_calls_good(func):
     def wrapper(*args, **kwargs):
         func._call_log.append(time.time())
         return func(*args, **kwargs)
+
     return wrapper
 
 
@@ -300,6 +322,7 @@ def log_calls_good(func):
 #             func(*args, **kwargs)
 #     return wrapper
 
+
 # GOOD — 3 levels: outer(args) → decorator(func) → wrapper(*args)
 def repeat(times: int):
     def decorator(func):
@@ -309,12 +332,16 @@ def repeat(times: int):
             for _ in range(times):
                 result = func(*args, **kwargs)
             return result
+
         return wrapper
+
     return decorator
+
 
 @repeat(times=3)
 def greet(name):
     print(f"Hello, {name}!")
+
 
 # Uncomment: greet("Sanket")  # prints 3 times
 
@@ -341,6 +368,7 @@ def greet(name):
 
 # ── BROKEN CODE — DO NOT PEEK AT SOLUTION ──
 
+
 def memoize(func):
     cache = {}
 
@@ -351,11 +379,13 @@ def memoize(func):
 
     return wrapper
 
+
 @memoize
 def expensive_computation(n):
     """Simulates an expensive computation."""
     time.sleep(0.1)
-    return n ** 2
+    return n**2
+
 
 # TEST: Call from multiple threads — will it break?
 # from concurrent.futures import ThreadPoolExecutor
@@ -382,7 +412,8 @@ def expensive_computation(n):
 
 # ── BROKEN CODE — DO NOT PEEK AT SOLUTION ──
 
-_global_log = []   # ← Bug: shared across all decorated functions
+_global_log = []  # ← Bug: shared across all decorated functions
+
 
 def audit_log(func):
     def wrapper(*args, **kwargs):
@@ -392,18 +423,21 @@ def audit_log(func):
             result = func(*args, **kwargs)
             entry["status"] = "success"
             entry["result"] = result
-            _global_log.append(entry)   # ← Bug: double append
+            _global_log.append(entry)  # ← Bug: double append
             return result
         except Exception as e:
             entry["status"] = "error"
             entry["error"] = str(e)
             # ← Bug: exception is swallowed, never re-raised
+
     return wrapper
+
 
 @audit_log
 def divide(a, b):
     """Divide a by b."""
     return a / b
+
 
 # divide(10, 0)  ← This should raise ZeroDivisionError, but it returns None!
 
@@ -429,6 +463,7 @@ def divide(a, b):
 
 import inspect
 
+
 def validate_types(func):
     def wrapper(*args, **kwargs):
         annotations = func.__annotations__
@@ -440,12 +475,15 @@ def validate_types(func):
                     f"got {type(arg_val).__name__}"
                 )
         return func(*args, **kwargs)
+
     return wrapper
+
 
 @validate_types
 def add_numbers(a: int, b: int) -> int:
     """Add two numbers."""
     return a + b
+
 
 # add_numbers(1, 2)      # Works
 # add_numbers(1, "two")  # Should raise TypeError
@@ -485,6 +523,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 def process_payment(user_id, amount, currency="INR"):
     # === Input validation ===
     if not isinstance(user_id, int):
@@ -497,7 +536,9 @@ def process_payment(user_id, amount, currency="INR"):
         raise ValueError(f"Unsupported currency: {currency}")
 
     # === Logging ===
-    logger.info(f"Processing payment: user={user_id}, amount={amount}, currency={currency}")
+    logger.info(
+        f"Processing payment: user={user_id}, amount={amount}, currency={currency}"
+    )
 
     # === Timing ===
     start = time.time()
@@ -516,7 +557,7 @@ def process_payment(user_id, amount, currency="INR"):
                 "user_id": user_id,
                 "amount": amount,
                 "currency": currency,
-                "status": "success"
+                "status": "success",
             }
 
             elapsed = time.time() - start
@@ -595,7 +636,7 @@ if __name__ == "__main__":
     # Demo: rate_limit
     print("--- rate_limit demo ---")
     for i in range(5):
-        print(f"  Call {i+1}: {fetch_data(f'https://api.example.com/{i}')}")
+        print(f"  Call {i + 1}: {fetch_data(f'https://api.example.com/{i}')}")
     print()
 
     # Demo: Metadata preservation
