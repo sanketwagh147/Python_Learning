@@ -1,6 +1,7 @@
 # Combined Challenges Practice Solutions
 
 ## Solution 1 - Instrumented API Ingestion
+
 Combine a retry decorator, an API session context manager, and a paginated generator so the sync code stays linear.
 
 ```python
@@ -22,6 +23,7 @@ def stream_partner_records(client):
 ```
 
 ## Solution 2 - Secure Document Processing
+
 Short-lived credentials belong in a context manager, and large files should be processed chunk by chunk.
 
 ```python
@@ -37,6 +39,7 @@ def process_document(path, credential_provider):
 ```
 
 ## Solution 3 - Job Runner with Leases
+
 The lease context manager handles ownership, while the generator streams progress safely.
 
 ```python
@@ -49,6 +52,7 @@ def run_job(job_store, worker_id):
 ```
 
 ## Solution 4 - Multi-Tenant Webhook Dispatcher
+
 Keep tenant-specific concerns at the edges and let the generator supply one delivery at a time.
 
 ```python
@@ -65,6 +69,7 @@ def dispatch_pending(store, tenant_client_factory):
 ```
 
 ## Solution 5 - Streaming Analytics Pipeline
+
 Use generators for the hot path and keep checkpointing in a context manager so progress is never lost silently.
 
 ```python

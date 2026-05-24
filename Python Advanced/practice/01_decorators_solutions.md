@@ -1,6 +1,7 @@
 # Decorators Practice Solutions
 
 ## Solution 1 - Audit Critical Actions
+
 Use a decorator factory and log inside `finally` so failures are captured too.
 
 ```python
@@ -36,6 +37,7 @@ def audit(event_name, sink):
 ```
 
 ## Solution 2 - Permission Guard for Internal Tools
+
 Accept an actor explicitly, or resolve it from `self.actor` for bound methods.
 
 ```python
@@ -59,6 +61,7 @@ def require_roles(*allowed_roles):
 ```
 
 ## Solution 3 - Response Cache with Expiry
+
 Use argument tuples as cache keys and `time.monotonic()` for TTL checks.
 
 ```python
@@ -89,6 +92,7 @@ def ttl_cache(ttl_seconds):
 ```
 
 ## Solution 4 - Retry Unstable Vendor Calls
+
 Retry only known transient failures and add jitter so many workers do not retry in lockstep.
 
 ```python
@@ -116,6 +120,7 @@ def retry(max_attempts, retry_for, base_delay=0.25):
 ```
 
 ## Solution 5 - Tenant-Aware Rate Limiting
+
 Store timestamps per tenant and protect them with a lock.
 
 ```python

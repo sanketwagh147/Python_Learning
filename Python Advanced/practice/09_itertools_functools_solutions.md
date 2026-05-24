@@ -1,6 +1,7 @@
 # itertools and functools Practice Solutions
 
 ## Solution 1 - Daily Store Totals
+
 `groupby` works well when the input is already sorted.
 
 ```python
@@ -19,6 +20,7 @@ def daily_totals(rows):
 ```
 
 ## Solution 2 - Merge and Filter Event Streams
+
 Merge lazily, then filter with a generator expression.
 
 ```python
@@ -31,6 +33,7 @@ def important_events(*streams):
 ```
 
 ## Solution 3 - Reusable Notification Senders
+
 `partial` removes repetitive boilerplate from each call site.
 
 ```python
@@ -45,6 +48,7 @@ send_invoice_email = partial(send_email, sender="billing@example.com", template_
 ```
 
 ## Solution 4 - Rolling Business Metrics
+
 `accumulate` can carry a tuple or dict, not just a number.
 
 ```python
@@ -65,6 +69,7 @@ def running_margin(rows):
 ```
 
 ## Solution 5 - Multi-Step Analytics Without Temporary Lists
+
 Compose iterators and reduce only at the end.
 
 ```python

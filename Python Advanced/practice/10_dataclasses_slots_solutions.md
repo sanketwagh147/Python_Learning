@@ -1,6 +1,7 @@
 # Dataclasses and slots Practice Solutions
 
 ## Solution 1 - Order Data Transfer Object
+
 Dataclasses reduce boilerplate for plain data models.
 
 ```python
@@ -20,6 +21,7 @@ class Order:
 ```
 
 ## Solution 2 - Immutable Configuration Snapshot
+
 Use `frozen=True` so in-flight jobs cannot mutate the release config.
 
 ```python
@@ -38,6 +40,7 @@ class ReleaseConfig:
 ```
 
 ## Solution 3 - Derived Fields for Shipment Planning
+
 Keep raw inputs and derived logistics values together.
 
 ```python
@@ -61,6 +64,7 @@ class ShipmentBox:
 ```
 
 ## Solution 4 - Memory-Efficient Telemetry Events
+
 Slotted dataclasses remove the instance `__dict__` and reduce memory usage.
 
 ```python
@@ -76,6 +80,7 @@ class TelemetryEvent:
 ```
 
 ## Solution 5 - Auditable Financial Records
+
 Make comparison semantics intentional and keep money precise.
 
 ```python

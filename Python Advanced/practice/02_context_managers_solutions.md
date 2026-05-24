@@ -1,6 +1,7 @@
 # Context Managers Practice Solutions
 
 ## Solution 1 - Temporary Environment Override
+
 Snapshot only the keys you touch and restore them on exit.
 
 ```python
@@ -24,6 +25,7 @@ def temporary_env(**updates):
 ```
 
 ## Solution 2 - Transaction Scope for Order Updates
+
 Commit only if the block completes successfully.
 
 ```python
@@ -43,6 +45,7 @@ def transaction(session):
 ```
 
 ## Solution 3 - File Lock Around Monthly Reports
+
 On macOS and Linux, `fcntl.flock` is a practical file-based lock.
 
 ```python
@@ -70,6 +73,7 @@ def report_lock(path, timeout=5):
 ```
 
 ## Solution 4 - Reversible Feature-Flag Rollout
+
 Store the pre-existing values and report only the keys that changed.
 
 ```python
@@ -92,6 +96,7 @@ def temporary_flags(config, **overrides):
 ```
 
 ## Solution 5 - Coordinated Cleanup Across Services
+
 `ExitStack` is ideal when you do not know all resources upfront.
 
 ```python

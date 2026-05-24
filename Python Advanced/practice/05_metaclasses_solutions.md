@@ -1,6 +1,7 @@
 # Metaclasses Practice Solutions
 
 ## Solution 1 - Auto-Register Command Handlers
+
 The metaclass updates a registry when a valid concrete subclass is created.
 
 ```python
@@ -19,6 +20,7 @@ class CommandMeta(type):
 ```
 
 ## Solution 2 - Enforce Required Class Attributes
+
 Reject bad framework classes at import time, not at runtime.
 
 ```python
@@ -35,6 +37,7 @@ class HandlerMeta(type):
 ```
 
 ## Solution 3 - Add Declarative Field Collection
+
 Collect field objects in order and merge inherited fields explicitly.
 
 ```python
@@ -57,6 +60,7 @@ class SchemaMeta(type):
 ```
 
 ## Solution 4 - Validate Plugin Contracts Across Teams
+
 Validation rules belong in one place so plugin errors stay predictable.
 
 ```python
@@ -76,6 +80,7 @@ class PluginMeta(type):
 ```
 
 ## Solution 5 - Tenant-Specific Model Builders
+
 Use the metaclass sparingly: inject metadata once, keep the runtime objects ordinary.
 
 ```python

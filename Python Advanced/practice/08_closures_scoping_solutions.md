@@ -1,6 +1,7 @@
 # Closures and Scoping Practice Solutions
 
 ## Solution 1 - Discount Rule Factory
+
 Closures are a clean way to capture stable pricing rules.
 
 ```python
@@ -16,6 +17,7 @@ def make_discount_calculator(percent, minimum_total):
 ```
 
 ## Solution 2 - Log Redaction Builder
+
 Capture the sensitive key set once and return a pure transformation function.
 
 ```python
@@ -29,6 +31,7 @@ def build_redactor(sensitive_keys, replacement="***"):
 ```
 
 ## Solution 3 - Stateful Alert Counter
+
 `nonlocal` keeps the state private without reaching for globals.
 
 ```python
@@ -46,6 +49,7 @@ def build_alert_counter(threshold):
 ```
 
 ## Solution 4 - Retry Policy Builder
+
 The factory captures config once and returns a wrapper tuned for that integration.
 
 ```python
@@ -69,6 +73,7 @@ def make_retry_wrapper(max_attempts, delay_seconds):
 ```
 
 ## Solution 5 - Tenant Router Without Late Binding Bugs
+
 Bind the loop variable immediately with a default argument.
 
 ```python

@@ -1,6 +1,7 @@
 # Descriptors Practice Solutions
 
 ## Solution 1 - Positive Money Fields
+
 Descriptors centralize validation across many related fields.
 
 ```python
@@ -24,6 +25,7 @@ class PositiveDecimal:
 ```
 
 ## Solution 2 - Normalized Contact Fields
+
 The descriptor keeps normalization rules out of every model method.
 
 ```python
@@ -42,6 +44,7 @@ class EmailField:
 ```
 
 ## Solution 3 - Lazy Secret Lookup
+
 Fetch once, cache per instance, and let the owner decide when to invalidate.
 
 ```python
@@ -62,6 +65,7 @@ class LazySecret:
 ```
 
 ## Solution 4 - Unit-Aware Measurement Field
+
 Normalize internally and expose helper methods for alternative units.
 
 ```python
@@ -83,6 +87,7 @@ class WeightKg:
 ```
 
 ## Solution 5 - Permissioned Attribute Access with Audit
+
 Descriptors can guard both reads and writes if the actor lives on the instance.
 
 ```python

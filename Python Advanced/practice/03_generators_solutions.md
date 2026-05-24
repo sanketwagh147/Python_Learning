@@ -1,6 +1,7 @@
 # Generators Practice Solutions
 
 ## Solution 1 - Stream Error Logs Lazily
+
 Yield matching lines directly from the file iterator.
 
 ```python
@@ -12,6 +13,7 @@ def iter_error_lines(path, predicate=lambda line: "ERROR" in line):
 ```
 
 ## Solution 2 - Paginated CRM Export
+
 Keep fetching until the cursor disappears.
 
 ```python
@@ -27,6 +29,7 @@ def iter_customers(fetch_page, start_cursor=None):
 ```
 
 ## Solution 3 - Normalize Large CSV Rows
+
 Chain generators so each stage does one thing well.
 
 ```python
@@ -45,6 +48,7 @@ def cleaned_csv_rows(path):
 ```
 
 ## Solution 4 - Merge Sorted Sensor Feeds
+
 Use a heap so only one item from each source is in memory.
 
 ```python
@@ -72,6 +76,7 @@ def merge_streams(*streams):
 ```
 
 ## Solution 5 - Backpressure-Aware Batch Builder
+
 Track both size and elapsed time before deciding to flush.
 
 ```python

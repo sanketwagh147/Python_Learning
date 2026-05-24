@@ -3,10 +3,12 @@
 This folder adds real-world practice material for each numbered topic in `Python Advanced`.
 
 Each topic has two companion files:
+
 - `*_problems.md` for scenario-driven exercises
 - `*_solutions.md` for worked solutions with explanations and code
 
 Coverage in this folder:
+
 - `01_decorators`
 - `02_context_managers`
 - `03_generators`

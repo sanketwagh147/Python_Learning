@@ -1,6 +1,7 @@
 # Magic Methods Practice Solutions
 
 ## Solution 1 - Money Value Object
+
 Implement only the dunder methods that match the domain cleanly.
 
 ```python
@@ -36,6 +37,7 @@ class Money:
 ```
 
 ## Solution 2 - Inventory Batch Container
+
 Container dunder methods make a small domain object natural to use.
 
 ```python
@@ -58,6 +60,7 @@ class InventoryBatch:
 ```
 
 ## Solution 3 - Time Window Membership
+
 `__contains__` is perfect for repeated `timestamp in window` checks.
 
 ```python
@@ -76,6 +79,7 @@ class TimeWindow:
 ```
 
 ## Solution 4 - Query Filter Composition
+
 Overload operators only when the meaning is obvious and immutable.
 
 ```python
@@ -94,6 +98,7 @@ class QueryFilter:
 ```
 
 ## Solution 5 - Weighted Scorecard Object
+
 Expose iteration and ordering deliberately instead of trying to mimic every numeric type.
 
 ```python

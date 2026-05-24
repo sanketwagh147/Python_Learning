@@ -1,6 +1,7 @@
 # ABCs and Protocols Practice Solutions
 
 ## Solution 1 - Payment Gateway Contract
+
 ABCs are useful when you want explicit inheritance and shared helper logic.
 
 ```python
@@ -21,6 +22,7 @@ class PaymentGateway(ABC):
 ```
 
 ## Solution 2 - Storage Provider Protocol
+
 Protocols are ideal when test doubles should not need inheritance.
 
 ```python
@@ -36,6 +38,7 @@ class StorageProvider(Protocol):
 ```
 
 ## Solution 3 - Notification Channels
+
 Define only the behavior the dispatcher needs.
 
 ```python
@@ -52,6 +55,7 @@ def dispatch(channel: NotificationChannel, recipient: str, message: str) -> str:
 ```
 
 ## Solution 4 - Exporter Plugins with Runtime Validation
+
 If you need runtime checks, combine registration with a runtime-checkable protocol.
 
 ```python
@@ -71,6 +75,7 @@ def register_exporter(name, exporter, registry):
 ```
 
 ## Solution 5 - Rule Engine Extensions
+
 Protocols let the engine accept mixed rule implementations while keeping type hints useful.
 
 ```python

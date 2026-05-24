@@ -1,6 +1,7 @@
 # Concurrency Practice Solutions
 
 ## Solution 1 - Parallel Receipt Downloads
+
 Downloads are I/O-bound, so threads are a practical fit.
 
 ```python
@@ -21,6 +22,7 @@ def download_receipts(receipt_ids, fetch_one, max_workers=8):
 ```
 
 ## Solution 2 - Producer-Consumer Invoice Pipeline
+
 `queue.Queue` already gives you the thread-safe coordination you need.
 
 ```python
@@ -49,6 +51,7 @@ def start_workers(worker_count, task_queue, output_queue, process_invoice):
 ```
 
 ## Solution 3 - Async API Sync with Semaphores
+
 Use a semaphore to cap concurrency and return structured results from each task.
 
 ```python
@@ -70,6 +73,7 @@ async def sync_customers(customer_ids, client, limit=20):
 ```
 
 ## Solution 4 - Process Pool for CPU Work
+
 CPU-heavy image work benefits from processes because each worker gets its own interpreter state.
 
 ```python
@@ -90,6 +94,7 @@ def generate_hashes(paths, hasher, workers=4):
 ```
 
 ## Solution 5 - Hybrid Event Processing System
+
 Keep I/O stages asynchronous and offload CPU scoring to a process pool.
 
 ```python
