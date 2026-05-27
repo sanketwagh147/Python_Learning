@@ -149,6 +149,7 @@ def retry(
     """
 
     def decorator(func):
+
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             last_exception = None

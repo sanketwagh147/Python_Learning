@@ -1,18 +1,26 @@
-from typing import Callable
+class FooDecorator:
+    def __init__(self, func) -> None:
+        self.func = func
+        self.call_count = 0
 
-from attr import dataclass
-from enum import StrEnum, auto
+    def __call__(self, *args, **kwargs):
+
+        print("Before calling the function")
+        result = self.func(*args, **kwargs)
+        print("After calling the function")
+        self.call_count += 1
+        print(self.call_count)
+        return self.func()
 
 
-class Status(StrEnum):
-    STARTED = auto()
-    FIRST_INNINGS = auto()
-    LUNCH = auto()
-    SECOND_INNINGS = auto()
-    TEA = auto()
-    ENDED = auto()
+@FooDecorator
+def bar():
+    print("running bar")
 
 
-class StatusStore:
-    def __init__(self, fn: Callable) -> None:
-        self.current_status: Status = Status.STARTED
+if __name__ == "__main__":
+    bar()
+    bar()
+    bar()
+    bar()
+    bar()
